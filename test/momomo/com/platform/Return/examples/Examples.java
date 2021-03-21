@@ -80,7 +80,7 @@ public class Examples {
         Return.Three<String, Integer, Long> $      = three();
         Return.Two<String, Integer>         casted = $.asTwo();
         
-        paramsThree($);
+        testingParameters($);
         // paramsThree(casted); // Won't work
     }
     
@@ -109,30 +109,30 @@ public class Examples {
         // ...
         
         // We can pass it to params method 
-        paramsThree(five());
-        paramsThree($);
-        paramsThree(casted);
+        testingParameters(five());
+        testingParameters($);
+        testingParameters(casted);
     
-        paramsThree( threeFromFour() );
-        paramsThree( threeFromFive() );
-        paramsThree( fourFromFive()  );
+        testingParameters( fourToThree() );
+        testingParameters( fiveToThree() );
+        testingParameters( fiveToFour()  );
     }
     
     /////////////////////////////////////////////////////////////////////
     
     public static void exampleFour() {
         // Here we show how all methods that call five() are able to return lower / higher inheritance classes
-        Return.One<String>                                                                          one   = oneFromFive();
-        Return.Two<String, Integer>                                                                 two   = twoFromFive();
-        Return.Three<String, Integer, Long>                                                         three = threeFromFive();
-        Return.Four<String, Integer, Long, Boolean>                                                 four  = fourFromFive();
+        Return.One<String>                                                                          one   = fiveToOne();
+        Return.Two<String, Integer>                                                                 two   = fiveToTwo();
+        Return.Three<String, Integer, Long>                                                         three = fiveToThree();
+        Return.Four<String, Integer, Long, Boolean>                                                 four  = fiveToFour();
         Return.Five<String, Integer, Long, Boolean, LinkedHashMap<String, List<ArrayList<String>>>> five  = five();
     
         // paramsThree( one   );  // error!
         // paramsThree( two   );  // error!
-        paramsThree( three );
-        paramsThree( four  );
-        paramsThree( five  );
+        testingParameters( three );
+        testingParameters( four  );
+        testingParameters( five  );
     }
     
     /////////////////////////////////////////////////////////////////////
@@ -186,35 +186,35 @@ public class Examples {
      * 
      * @return One
      */
-    private static Return.One<String> oneFromFive() {
+    private static Return.One<String> fiveToOne() {
         return five();       // Perfetly valid
     }
     
     /**
      * @return Two
      */
-    private static Return.Two<String, Integer> twoFromFive() {
+    private static Return.Two<String, Integer> fiveToTwo() {
         return five();       // Perfetly valid
     }
     
     /**
      * @return Three
      */
-    private static Return.Three<String, Integer, Long> threeFromFour() {
+    private static Return.Three<String, Integer, Long> fiveToThree() {
+        return five();       // Perfetly valid
+    }
+    
+    /**
+     * @return Three
+     */
+    private static Return.Three<String, Integer, Long> fourToThree() {
         return four();       // Perfetly valid
-    }
-    
-    /**
-     * @return Three
-     */
-    private static Return.Three<String, Integer, Long> threeFromFive() {
-        return five();       // Perfetly valid
     }
     
     /**
      * @return Four
      */
-    private static Return.Four<String, Integer, Long, Boolean> fourFromFive() {
+    private static Return.Four<String, Integer, Long, Boolean> fiveToFour() {
         return five();       // Perfetly valid
     }
     
@@ -230,9 +230,9 @@ public class Examples {
     
     /**
      * Should you desire to pass the Return... you can declare it as Params.One ... instead.
-     * See example calls from {@link Examples#paramsTest}
+     * See example calls from {@link momomo.com.platform.Return.examples.Examples#exampleFour()}
      */
-    private static Return.Three<String, Integer, Long> paramsThree(Params.Three<String, Integer, Long> params) {
+    private static Return.Three<String, Integer, Long> testingParameters(Params.Three<String, Integer, Long> params) {
         return params;
     }
 }
