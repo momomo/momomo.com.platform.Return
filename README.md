@@ -76,15 +76,15 @@ Examples can be found in [`Example.java`](test/momomo/com/platform/Return/exampl
 /////////////////////////////////////////////////////////////////////
 
 private static Return.Two<String, Integer> two() {
-    return new Return.Two<>("", 1);
+    return three();
 }
 
 private static Return.Three<String, Integer, Long> three() {
-    return new Return.Three<>("", 1, 2L);
+    return four();
 }
 
 private static Return.Four<String, Integer, Long, Boolean> four() {
-    return new Return.Four<>("", 1, 2L, false);
+    return five();
 }
 
 private static Return.Five<String, Integer, Long, Boolean, LinkedHashMap<String, List<ArrayList<String>>>> five() {
