@@ -46,7 +46,8 @@ Sometimes we want to easily return multiple return values from a method. This li
 We use this occasionally, but not a crazy amount in our code. It **also** you to return subsets as it has smart inheritance structure.
   
 With this `class` based library, you can use: 
-* `Return.One<String>` to return just `One` well defined object. It is provided just for consistency, although it could have some usage. 
+* `Return.One<String>` to return just `One` well defined object.   
+It is provided just for consistency, although it could have some usage. 
 * `Return.Two<String, Integer, Long>` to return `Two` well defined objects. 
 * `Return.Three<String, Integer, Long>` to return `Three` well defined objects. 
 * `Return.Four<String, Integer, Long, Boolean>` to return `Four` well defined objects
