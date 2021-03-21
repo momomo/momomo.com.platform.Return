@@ -75,7 +75,14 @@ Examples can be found in [`Example.java`](test/momomo/com/platform/Return/exampl
 /////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////
 
+private static Return.One<String> one() {
+    return two();
+}
+
 private static Return.Two<String, Integer> two() {
+    if ( false ) return four();
+    if ( false ) return five();
+    
     return three();
 }
 
