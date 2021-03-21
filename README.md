@@ -231,7 +231,7 @@ public static void exampleSix() {
     
     // Note that these are all clones. Sure, we could have done: 
     Return.Four<String, Integer, Long, Boolean> last = new Return.Four<>($.first, $.second, $.third, $.fourth);
-    // But typing that manyally is a bit too much. 
+    // But typing that manyally is a bit too much. You won't get much help from editor for that case.  
 }
 
 /////////////////////////////////////////////////////////////////////
