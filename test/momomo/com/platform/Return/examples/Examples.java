@@ -54,7 +54,8 @@ public class Examples {
         if ( a == b && b == $ ) {
             System.out.println(true);
         }
-        
+    
+        // Still the same instance!
         if ( a instanceof Return.Four ) {
             System.out.println(true);
         }
