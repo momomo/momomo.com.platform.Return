@@ -17,7 +17,9 @@ public class Return { protected Return(){ /* Just a wrapper class for contained 
      * Not really neccessary but good to support the below classes
      */
     public static class One<First> {
-        public First first;
+        private First first;
+    
+        public One() {}
     
         public One(First first) {
             this.first = first;
@@ -57,7 +59,13 @@ public class Return { protected Return(){ /* Just a wrapper class for contained 
     }
     
     public static class Two<First, Second> extends One<First> {
-        public Second second;
+        private Second second;
+    
+        public Two() {}
+        
+        public Two(First first) {
+            super(first); 
+        }
         
         public Two(First first, Second second) {
             super(first);
@@ -91,13 +99,23 @@ public class Return { protected Return(){ /* Just a wrapper class for contained 
          *
          */
         public Two<First, Second> toTwo() {
-            return new Two<>(this.first, this.second);
+            return new Two<>(this.first(), this.second());
         }
     }
     
     public static class Three<First, Second, Third> extends Two<First, Second> {
-        public Third third;
-        
+        private Third third;
+    
+        public Three() {}
+    
+        public Three(First first) {
+            super(first);
+        }
+    
+        public Three(First first, Second second) {
+            super(first, second);
+        }
+    
         public Three(First first, Second second, Third third) {
             super(first, second);
             this.third = third;
@@ -130,20 +148,30 @@ public class Return { protected Return(){ /* Just a wrapper class for contained 
          *
          */
         public Three<First, Second, Third> toThree() {
-            return new Three<>(this.first, this.second, this.third);
+            return new Three<>(this.first(), this.second());
         }
     }
     
     public static class Four<First, Second, Third, Fourth> extends Three<First, Second, Third> {
-        public Fourth fourth;
-        
+        private Fourth fourth;
+    
+        public Four() {}
+    
+        public Four(First first) {
+            super(first);
+        }
+    
+        public Four(First first, Second second) {
+            super(first, second);
+        }
+    
+        public Four(First first, Second second, Third third) {
+            super(first, second, third);
+        }
+    
         public Four(First first, Second second, Third third, Fourth fourth) {
             super(first, second, third);
             this.fourth = fourth;
-        }
-    
-        public Four(Five<First, Second, Third, Fourth, ?> $) {
-            this($.first, $.second, $.third, $.fourth);
         }
     
         /**
@@ -173,13 +201,31 @@ public class Return { protected Return(){ /* Just a wrapper class for contained 
          *
          */
         public Four<First, Second, Third, Fourth> toFour() {
-            return new Four<>(this.first, this.second, this.third, this.fourth);
+            return new Four<>(this.first(), this.second(), this.third(), this.fourth());
         }
     }
     
     public static final class Five<First, Second, Third, Fourth, Fifth> extends Four<First, Second, Third, Fourth> {
-        public Fifth fifth;
-        
+        private Fifth fifth;
+    
+        public Five() {}
+    
+        public Five(First first) {
+            super(first);
+        }
+    
+        public Five(First first, Second second) {
+            super(first, second);
+        }
+    
+        public Five(First first, Second second, Third third) {
+            super(first, second, third);
+        }
+    
+        public Five(First first, Second second, Third third, Fourth fourth) {
+            super(first, second, third, fourth);
+        }
+    
         public Five(First first, Second second, Third third, Fourth fourth, Fifth fifth) {
             super(first, second, third, fourth);
             this.fifth = fifth;
@@ -215,7 +261,7 @@ public class Return { protected Return(){ /* Just a wrapper class for contained 
          * For consitency only. 
          */
         public Five<First, Second, Third, Fourth, Fifth> toFive() {
-            return new Five<>(this.first, this.second, this.third, this.fourth, this.fifth);
+            return new Five<>(this.first(), this.second(), this.third(), this.fourth(), this.fifth());
         }
     }
     
