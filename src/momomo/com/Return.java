@@ -17,7 +17,7 @@ public class Return { protected Return(){ /* Just a wrapper class for contained 
      * Not really neccessary but good to support the below classes
      */
     public static class One<First> {
-        private First first;
+        public First first;
     
         public One() {}
     
@@ -59,7 +59,7 @@ public class Return { protected Return(){ /* Just a wrapper class for contained 
     }
     
     public static class Two<First, Second> extends One<First> {
-        private Second second;
+        public Second second;
     
         public Two() {}
         
@@ -104,7 +104,7 @@ public class Return { protected Return(){ /* Just a wrapper class for contained 
     }
     
     public static class Three<First, Second, Third> extends Two<First, Second> {
-        private Third third;
+        public Third third;
     
         public Three() {}
     
@@ -153,7 +153,7 @@ public class Return { protected Return(){ /* Just a wrapper class for contained 
     }
     
     public static class Four<First, Second, Third, Fourth> extends Three<First, Second, Third> {
-        private Fourth fourth;
+        public Fourth fourth;
     
         public Four() {}
     
@@ -206,7 +206,7 @@ public class Return { protected Return(){ /* Just a wrapper class for contained 
     }
     
     public static final class Five<First, Second, Third, Fourth, Fifth> extends Four<First, Second, Third, Fourth> {
-        private Fifth fifth;
+        public Fifth fifth;
     
         public Five() {}
     

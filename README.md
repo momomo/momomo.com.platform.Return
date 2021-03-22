@@ -73,12 +73,6 @@ Examples can be found in [`Example.java`](test/momomo/com/platform/Return/exampl
 ```java
 /////////////////////////////////////////////////////////////////////
     
-/**
- * @return Four in the end
- */
-/**
- * @return Four in the end
- */
 public static Return.Four<StringBuilder, String, List<String>, Boolean> demoZero() {
     Return.One<String>                  one   = new Return.One<>  ("first");
     Return.Two<String, Integer>         two   = new Return.Two<>  ("first", 1);
@@ -86,8 +80,9 @@ public static Return.Four<StringBuilder, String, List<String>, Boolean> demoZero
     
     // And so forth
 
-    three.first("första");
-    three.second(10);
+    three.first = "första";
+    three.second = 10;
+    three.third(11L);
     
     return new Return.Four<>(new StringBuilder(), "second", new ArrayList<>(), false);
 }
@@ -102,7 +97,7 @@ public static void demoOne() {
 }
 
 /////////////////////////////////////////////////////////////////////
-// Supports the examples below, and are examples of their own. 
+// Supports the examples below, and are examples of their own.
 // Parse the code inside the method body.
 /////////////////////////////////////////////////////////////////////
 
@@ -135,8 +130,8 @@ private static Return.Five<String, Integer, Long, Boolean, LinkedHashMap<String,
 public static void exampleZero() {
     Return.Two<String, Integer> $ = two();
 
-    String  first  = $.first();
-    Integer second = $.second();
+    String  first  = $.first;
+    Integer second = $.second;
 
     Return.One<String> casted = $.asOne();
     Return.One<String> cloned = $.toOne();
@@ -153,9 +148,9 @@ public static void exampleZero() {
 
     casted.first("value");
 
-    System.out.println(casted.first());
+    System.out.println(casted.first);
 
-    if ( casted.first().equals($.first()) ) {
+    if ( casted.first.equals($.first) ) {
         System.out.println(true); // Same instance!
     }
 
@@ -177,11 +172,11 @@ public static void exampleOne() {
 public static void exampleTwo() {
     Return.Five<String, Integer, Long, Boolean, LinkedHashMap<String, List<ArrayList<String>>>> $ = five();
     
-    String                                         first  = $.first();
-    Integer                                        second = $.second();
-    Long                                           third  = $.third();
-    Boolean                                        fourth = $.fourth();
-    LinkedHashMap<String, List<ArrayList<String>>> fifth  = $.fifth();
+    String                                         first  = $.first;
+    Integer                                        second = $.second;
+    Long                                           third  = $.third;
+    Boolean                                        fourth = $.fourth;
+    LinkedHashMap<String, List<ArrayList<String>>> fifth  = $.fifth;
 }
 
 /////////////////////////////////////////////////////////////////////
@@ -192,8 +187,8 @@ public static void exampleThree() {
     
     // We can also reassign it to a four, three, two, one ... 
     Return.Three<String, Integer, Long> casted = $;
-    String  first = casted.first();
-    Integer two   = casted.second();
+    String  first = casted.first;
+    Integer two   = casted.second;
     // ...
     
     // We can pass it to params method 
@@ -261,7 +256,7 @@ public static void exampleSix() {
     Return.Five<String, Integer, Long, Boolean, LinkedHashMap<String, List<ArrayList<String>>>> five  = $.toFive(); 
     
     // Note that these are all clones. Sure, we could have done: 
-    Return.Four<String, Integer, Long, Boolean> last = new Return.Four<>($.first(), $.second(), $.third(), $.fourth());
+    Return.Four<String, Integer, Long, Boolean> last = new Return.Four<>($.first, $.second, $.third, $.fourth);
     // But typing that manyally is a bit too much. You won't get much help from editor for that case.  
 }
 
