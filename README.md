@@ -96,7 +96,8 @@ public static void demoOne() {
 }
 
 /////////////////////////////////////////////////////////////////////
-// Supports the examples below, and are examples of their own. Read them.
+// Supports the examples below, and are examples of their own. 
+// Parse the code inside the method body.
 /////////////////////////////////////////////////////////////////////
 
 private static Return.One<String> one() {
