@@ -76,12 +76,18 @@ Examples can be found in [`Example.java`](test/momomo/com/platform/Return/exampl
 /**
  * @return Four in the end
  */
+/**
+ * @return Four in the end
+ */
 public static Return.Four<StringBuilder, String, List<String>, Boolean> demoZero() {
-    Return.One<String>                  one   = new Return.One<>("first");
-    Return.Two<String, Integer>         two   = new Return.Two<>("first", 1);
+    Return.One<String>                  one   = new Return.One<>  ("first");
+    Return.Two<String, Integer>         two   = new Return.Two<>  ("first", 1);
     Return.Three<String, Integer, Long> three = new Return.Three<>("first", 1, 2L);
     
     // And so forth
+
+    three.first("första");
+    three.second(10);
     
     return new Return.Four<>(new StringBuilder(), "second", new ArrayList<>(), false);
 }
