@@ -176,7 +176,7 @@ public static void example3() {
         System.out.println(true);
     }
 
-    $.first = new StringBuilder("Changing $.first will NOT change a and b too!");
+    $.first = new StringBuilder("Changing $.first will NOT change a and b as well!");
     System.out.println($.first); // Changing $.first will NOT change a and b too!
     System.out.println(a.first); // "first" 
     System.out.println(b.first); // "first" 
