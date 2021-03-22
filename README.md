@@ -73,103 +73,167 @@ Examples can be found in [`Example.java`](test/momomo/com/platform/Return/exampl
 ```java
 /////////////////////////////////////////////////////////////////////
     
-public static Return.Four<StringBuilder, String, List<String>, Boolean> demoZero() {
-    Return.One<String>                  one   = new Return.One<>  ("first");
-    Return.Two<String, Integer>         two   = new Return.Two<>  ("first", 1);
-    Return.Three<String, Integer, Long> three = new Return.Three<>("first", 1, 2L);
+/**
+ * @return Four in the end
+ */
+public static Return.Four<StringBuilder, String, List<String>, Boolean> example1() {
+    Return.One<String>                  a   = new Return.One<>  ("first");
+    Return.Two<String, Integer>         b   = new Return.Two<>  ("first", 2);
+    Return.Three<String, Integer, Long> c   = new Return.Three<>("first", 2, 3L);
+    // ... 
     
-    // And so forth
+    // We can read
+    String  first  = a.first;
+    Integer second = b.second;
 
-    three.first = "första";
-    three.second = 10;
-    three.third(11L);
+    // We can set 
+    c.first  = "första"; // Directly
+    c.second = 10;       // Directly
+    c.third(11L);        // Using setter
     
-    return new Return.Four<>(new StringBuilder(), "second", new ArrayList<>(), false);
+    // Return four
+    return new Return.Four<>(new StringBuilder("first"), "second", new ArrayList<>(), false);
 }
 
-public static void demoOne() {
-    Return.Four<StringBuilder, String, List<String>, Boolean> four = demoZero();
+/**
+ * Showing how to auto cast using asOne(), asTwo() ...
+ */
+public static void example2() {
+    Return.Four<StringBuilder, String, List<String>, Boolean> $ = new Return.Four<>(new StringBuilder("first"), "second", new ArrayList<>(), false);
 
-    Return.One<StringBuilder>         one = four.asOne();
-    Return.Two<StringBuilder, String> two = four.asTwo();
+    Return.One<StringBuilder>         a = $.asOne(); // Casting from Four<> to One<>
+    Return.Two<StringBuilder, String> b = $.asTwo(); // Casting from Four<> to Two<>
+
+    // Still the same instance!
+    if ( $.equals(a) && $.equals(b) ) {
+        System.out.println(true);
+    }
+
+    // All the same instance! a == b == $, just casted!
+    if ( a == b && b == $ ) {
+        System.out.println(true);
+    }
     
-    // And so forth ...
+    if ( a instanceof Return.Four ) {
+        System.out.println(true);
+    }
+
+    // Still the same instance!
+    if ( a instanceof Return.Three ) {
+        System.out.println(true);
+    }
+
+    // Still the same instance!
+    if ( a instanceof Return.Two ) {
+        System.out.println(true);
+    }
+
+    // Still the same instance!
+    if ( a instanceof Return.One ) {
+        System.out.println(true);
+    }
+    
+    $.first = new StringBuilder("Changing $.first will effectivaly change a and b as well!");
+    System.out.println($.first); // All the same
+    System.out.println(a.first); // All the same
+    System.out.println(b.first); // All the same
 }
 
 /////////////////////////////////////////////////////////////////////
-// Supports the examples below, and are examples of their own.
-// Parse the code inside the method body.
+
+/**
+ * Showing how to clone / copy to new types using toOne(), toTwo() ... 
+ */
+public static void example3() {
+    Return.Four<StringBuilder, String, ArrayList<Object>, Boolean> $ = new Return.Four<>(new StringBuilder("first"), "second", new ArrayList<>(), false);
+
+    Return.One<StringBuilder>         a = $.toOne(); // Not casting, but copying to a new instance!
+    Return.Two<StringBuilder, String> b = $.toTwo(); // Not casting, but copying to a new instance!
+
+    // Not the same instance!
+    if ( $.equals(a) && $.equals(b) ) {
+        System.out.println(false);
+    }
+
+    // False!
+    if ( a instanceof Return.Four ) {
+        System.out.println(false);
+    }
+
+    // False!
+    if ( a instanceof Return.Three ) {
+        System.out.println(false);
+    }
+
+    // False!
+    if ( a instanceof Return.Two ) {
+        System.out.println(false);
+    }
+
+    // True!
+    if ( a instanceof Return.One ) {
+        System.out.println(true);
+    }
+
+    $.first = new StringBuilder("Changing $.first will NOT change a and b too!");
+    System.out.println($.first); // Changing $.first will NOT change a and b too!
+    System.out.println(a.first); // "first" 
+    System.out.println(b.first); // "first" 
+}
+
+/////////////////////////////////////////////////////////////////////
+// Methods returning higher order, all eventually from five() 
 /////////////////////////////////////////////////////////////////////
 
+/**
+ * Create One<> by calling higher order one two()
+ */
 private static Return.One<String> one() {
-    return two();
+    return two();  // A two can be casted to a one
 }
 
+/**
+ * Create Two<> by calling higher order one three(), four() or five()
+ */
 private static Return.Two<String, Integer> two() {
-    if ( false ) return four();
-    if ( false ) return five();
+    if ( false ) return four();                 // A four can be casted to two
+    if ( false ) return five();                 // A five can be casted to two
+    if ( false ) new Return.Two<>("first", 2);  // We can create it directly
     
-    return three();
+    return three(); // A three can be casted to a two
 }
 
+/**
+ * Create Three<> by calling higher order one four()
+ */
 private static Return.Three<String, Integer, Long> three() {
     return four();
 }
 
+/**
+ * Create Four<> by calling higher order one five()
+ */
 private static Return.Four<String, Integer, Long, Boolean> four() {
     return five();
 }
 
+/**
+ * Create Five<>
+ */
 private static Return.Five<String, Integer, Long, Boolean, LinkedHashMap<String, List<ArrayList<String>>>> five() {
-    return new Return.Five<>("", 1, 2L, Boolean.FALSE, new LinkedHashMap<>());
+    return new Return.Five<>("first", 2, 3L, Boolean.FALSE, new LinkedHashMap<>());
 }
 
 /////////////////////////////////////////////////////////////////////
+// Using one(), two(), three(), four(), five() 
 /////////////////////////////////////////////////////////////////////
 
-public static void exampleZero() {
-    Return.Two<String, Integer> $ = two();
-
-    String  first  = $.first;
-    Integer second = $.second;
-
-    Return.One<String> casted = $.asOne();
-    Return.One<String> cloned = $.toOne();
-    
-    // Casted
-    if ( casted instanceof Return.Two ) {
-        System.out.println(true);
-    }
-
-    // Cloned
-    if ( cloned instanceof Return.Two ) {
-        System.out.println(false);
-    }
-
-    casted.first("value");
-
-    System.out.println(casted.first);
-
-    if ( casted.first.equals($.first) ) {
-        System.out.println(true); // Same instance!
-    }
-
-    exampleOne();
-}
-
-/////////////////////////////////////////////////////////////////////
-
-public static void exampleOne() {
-    Return.Three<String, Integer, Long> $      = three();
-    Return.Two<String, Integer>         casted = $.asTwo();
-    
-    testingParameters($);
-    // paramsThree(casted); // Won't work
-}
-
-/////////////////////////////////////////////////////////////////////
-
-public static void exampleTwo() {
+/**
+ * Just showing all generic types will still resolve. 
+ * 
+ * We return one casted to Two<> from a Five<>
+ */
+public static Return.Two<String, Integer> example5() {
     Return.Five<String, Integer, Long, Boolean, LinkedHashMap<String, List<ArrayList<String>>>> $ = five();
     
     String                                         first  = $.first;
@@ -177,146 +241,76 @@ public static void exampleTwo() {
     Long                                           third  = $.third;
     Boolean                                        fourth = $.fourth;
     LinkedHashMap<String, List<ArrayList<String>>> fifth  = $.fifth;
-}
-
-/////////////////////////////////////////////////////////////////////
-
-public static void exampleThree() {
-    // Notice the Return.Four from a five() !
-    Return.Four<String, Integer, Long, Boolean> $ = five();
     
-    // We can also reassign it to a four, three, two, one ... 
-    Return.Three<String, Integer, Long> casted = $;
-    String  first = casted.first;
-    Integer two   = casted.second;
-    // ...
-    
-    // We can pass it to params method 
-    testingParameters(five());
-    testingParameters($);
-    testingParameters(casted);
-
-    testingParameters( fourToThree() );
-    testingParameters( fiveToThree() );
-    testingParameters( fiveToFour()  );
+    return $.asTwo();
 }
 
-/////////////////////////////////////////////////////////////////////
 
-public static void exampleFour() {
-    // Here we show how all methods that call five() are able to return lower / higher inheritance classes
-    Return.One<String>                                                                          one   = fiveToOne();
-    Return.Two<String, Integer>                                                                 two   = fiveToTwo();
-    Return.Three<String, Integer, Long>                                                         three = fiveToThree();
-    Return.Four<String, Integer, Long, Boolean>                                                 four  = fiveToFour();
-    Return.Five<String, Integer, Long, Boolean, LinkedHashMap<String, List<ArrayList<String>>>> five  = five();
-
-    // paramsThree( one   );  // error!
-    // paramsThree( two   );  // error!
-    testingParameters( three );
-    testingParameters( four  );
-    testingParameters( five  );
-}
-
-/////////////////////////////////////////////////////////////////////
-
-public static void exampleFive() {
+/**
+ * Casting again
+ */
+public static void example6() {
     Return.Five<String, Integer, Long, Boolean, LinkedHashMap<String, List<ArrayList<String>>>> $ = five();
-
+    
     // Auto casting. The only major benefit of this one is that you won't have to type all of the generic signatures. 
     // If you have $ here, and you would like to express it as a Four, typing those might a be a hassle, at least when typing examples. 
     // So we provide convienience methods to do that. Intellij / Eclipse will generate the field. 
-
+    
     Return.One<String>                                                                          one   = $.asOne();
     Return.Two<String, Integer>                                                                 two   = $.asTwo();
     Return.Three<String, Integer, Long>                                                         three = $.asThree();
     Return.Four<String, Integer, Long, Boolean>                                                 four  = $.asFour();
     Return.Five<String, Integer, Long, Boolean, LinkedHashMap<String, List<ArrayList<String>>>> five  = $.asFive();
     
-    // Yes, the last one is not required, but it looks so much more consistent for this example so we added it. It just returns this and is cheap. 
-    
-    // Note that when casting from say a Five to a Two, the instance would still be a Five! So the values would still be accessible as it is not recreated. 
-    // It is the same instance! To transform it, we suggest you use the constructor for that. More features we are adding on the fly!
-    
-    // So we added it. Now we have: 
-    
-    exampleSix();
+    // Yes, the last one is not required, but it looks so much more consistent for this example so we added it. 
+    // It just returns this and is cheap. 
 }
 
-/////////////////////////////////////////////////////////////////////
-
-public static void exampleSix() {
+/**
+ * 'Cloning' again
+ */
+public static void example7() {
     Return.Five<String, Integer, Long, Boolean, LinkedHashMap<String, List<ArrayList<String>>>> $ = five();
-
+    
     // Clones. 
     Return.One<String>                                                                          one   = $.toOne();
     Return.Two<String, Integer>                                                                 two   = $.toTwo();
     Return.Three<String, Integer, Long>                                                         three = $.toThree();
     Return.Four<String, Integer, Long, Boolean>                                                 four  = $.toFour();
-    Return.Five<String, Integer, Long, Boolean, LinkedHashMap<String, List<ArrayList<String>>>> five  = $.toFive(); 
+    Return.Five<String, Integer, Long, Boolean, LinkedHashMap<String, List<ArrayList<String>>>> five  = $.toFive();
     
-    // Note that these are all clones. Sure, we could have done: 
+    // Note that these are all clones. Sure, we could have done:  
     Return.Four<String, Integer, Long, Boolean> last = new Return.Four<>($.first, $.second, $.third, $.fourth);
-    // But typing that manyally is a bit too much. You won't get much help from editor for that case.  
+    // But typing that manually is a bit too much. You won't get much help from editor typing that either!  
 }
 
 /////////////////////////////////////////////////////////////////////
-// Method auto casting, when reassigning aslo
+// Param = Return - Showing the Param class. 
 /////////////////////////////////////////////////////////////////////
 
 /**
- * Auto casting since Five inherit Four which inherits Three which ...
+ * Should you desire to pass say Return.Three<...>, you can declare it as Param.Three instead, just for readability and because it would look wierder having a method with (Return.Three<...> param)
  * 
- * @return One
+ * We return casted to One<>!
  */
-private static Return.One<String> fiveToOne() {
-    return five();       // Perfetly valid
+private static Return.One<String> eatme(Param.Three<String, Integer, Long> param) {
+    return param.asOne();
 }
 
 /**
- * @return Two
+ * Passing Return to eatme method which declares a Param.Three<>  
  */
-private static Return.Two<String, Integer> fiveToTwo() {
-    return five();       // Perfetly valid
-}
-
-/**
- * @return Three
- */
-private static Return.Three<String, Integer, Long> fiveToThree() {
-    return five();       // Perfetly valid
-}
-
-/**
- * @return Three
- */
-private static Return.Three<String, Integer, Long> fourToThree() {
-    return four();       // Perfetly valid
-}
-
-/**
- * @return Four
- */
-private static Return.Four<String, Integer, Long, Boolean> fiveToFour() {
-    return five();       // Perfetly valid
-}
-
-/////////////////////////////////////////////////////////////////////
-// Params demo below. Maybe overkill. 
-/////////////////////////////////////////////////////////////////////
-// We also provide a syntactic sugar class equivalent to Return called Params to allow you to pass your Return.One, Return.Two .. as Params.One instead.
-// Checkout the Params.java class which is an empty skeleton.
-// It is only because it might be ugly to have a method param be called Params. 
-/////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////
-
-/**
- * Should you desire to pass the Return... you can declare it as Params.One ... instead.
- * See example calls from {@link momomo.com.platform.Return.examples.Examples#exampleFour()}
- */
-private static Return.Three<String, Integer, Long> testingParameters(Params.Three<String, Integer, Long> params) {
-    return params;
+public static void example8() {
+    // We can pass it to params method 
+    Return.Five<String, Integer, Long, Boolean, LinkedHashMap<String, List<ArrayList<String>>>> $ = five();
+    
+    eatme($);
+    // eatme( $.asOne() );   // Compiler error!
+    // eatme( $.asTwo() );   // Compiler error!
+    
+    eatme( $.asThree() );
+    eatme( $.asFour () );
+    eatme( $.asFive () );
 }
 ```
 
