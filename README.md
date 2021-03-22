@@ -71,10 +71,12 @@ The class is really self documented. Just try to use it. You will figure it out.
 Examples can be found in [`Example.java`](test/momomo/com/platform/Return/examples/Examples.java) with the **class body inline** below packed with **examples**: 
 
 ```java
+/////////////////////////////////////////////////////////////////////
+    
 /**
  * @return Four in the end
  */
-public static Return.Four<StringBuilder, String, List<String>, Boolean> exampleMinusTwo() {
+public static Return.Four<StringBuilder, String, List<String>, Boolean> demoZero() {
     Return.One<String>                  one   = new Return.One<>("first");
     Return.Two<String, Integer>         two   = new Return.Two<>("first", 1);
     Return.Three<String, Integer, Long> three = new Return.Three<>("first", 1, 2L);
@@ -84,8 +86,8 @@ public static Return.Four<StringBuilder, String, List<String>, Boolean> exampleM
     return new Return.Four<>(new StringBuilder(), "second", new ArrayList<>(), false);
 }
 
-public static void exampleMinuOne() {
-    Return.Four<StringBuilder, String, List<String>, Boolean> four = exampleMinusTwo();
+public static void demoOne() {
+    Return.Four<StringBuilder, String, List<String>, Boolean> four = demoZero();
 
     Return.One<StringBuilder>         one = four.asOne();
     Return.Two<StringBuilder, String> two = four.asTwo();
@@ -93,11 +95,8 @@ public static void exampleMinuOne() {
     // And so forth ...
 }
 
-
-/////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////
 // Supports the examples below, and are examples of their own. Read them.
-/////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////
 
 private static Return.One<String> one() {
