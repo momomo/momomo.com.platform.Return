@@ -1,6 +1,6 @@
 package momomo.com.platform.Return.examples;
 
-import momomo.com.Param;
+import momomo.com.Params;
 import momomo.com.Return;
 
 import java.util.ArrayList;
@@ -235,7 +235,7 @@ public class Examples {
      * 
      * We return casted to One<>!
      */
-    private static Return.One<String> eatme(Param.Three<String, Integer, Long> param) {
+    private static Return.One<String> eatme(Params.Three<String, Integer, Long> param) {
         return param.asOne();
     }
     

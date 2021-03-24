@@ -35,7 +35,7 @@ public class Return { protected Return(){ /* Just a wrapper class for contained 
         /**
          * Set first
          */
-        public final One<First> first(First first) {
+        public One<First> first(First first) {
             this.first = first; return this;
         }
     
@@ -64,11 +64,11 @@ public class Return { protected Return(){ /* Just a wrapper class for contained 
         public Two() {}
         
         public Two(First first) {
-            super(first); 
+            this.first = first; 
         }
         
         public Two(First first, Second second) {
-            super(first);
+            this.first  = first;
             this.second = second;
         }
     
@@ -80,11 +80,18 @@ public class Return { protected Return(){ /* Just a wrapper class for contained 
         }
     
         /**
+         * We override for chaining. We set directly to avoid hitting the entire chain of super. 
+         */
+        @Override
+        public Two<First, Second> first(First first) {
+            super.first = first; return this;
+        }
+    
+        /**
          * Set second
          */
-        public final Two<First, Second> second(Second second) {
-            this.second = second;
-            return this;
+        public Two<First, Second> second(Second second) {
+            this.second = second; return this;
         }
     
         /**
@@ -109,16 +116,18 @@ public class Return { protected Return(){ /* Just a wrapper class for contained 
         public Three() {}
     
         public Three(First first) {
-            super(first);
+            this.first = first;
         }
     
         public Three(First first, Second second) {
-            super(first, second);
+            this.first  = first;
+            this.second = second;
         }
     
         public Three(First first, Second second, Third third) {
-            super(first, second);
-            this.third = third;
+            this.first  = first;
+            this.second = second;
+            this.third  = third;
         }
     
         /**
@@ -129,11 +138,26 @@ public class Return { protected Return(){ /* Just a wrapper class for contained 
         }
     
         /**
+         * We override for chaining. We set directly to avoid hitting the entire chain of super. 
+         */
+        @Override
+        public Three<First, Second, Third> first(First first) {
+            super.first = first; return this;
+        }
+    
+        /**
+         * We override for chaining. We set directly to avoid hitting the entire chain of super. 
+         */
+        @Override
+        public Three<First, Second, Third> second(Second second) {
+            super.second = second;  return this;
+        }
+    
+        /**
          * Set third
          */
-        public final Three<First, Second, Third> third(Third third) {
-            this.third = third;
-            return this;
+        public Three<First, Second, Third> third(Third third) {
+            this.third = third; return this;
         }
     
         /**
@@ -158,19 +182,24 @@ public class Return { protected Return(){ /* Just a wrapper class for contained 
         public Four() {}
     
         public Four(First first) {
-            super(first);
+            this.first = first;
         }
     
         public Four(First first, Second second) {
-            super(first, second);
+            this.first  = first;
+            this.second = second;
         }
     
         public Four(First first, Second second, Third third) {
-            super(first, second, third);
+            this.first  = first;
+            this.second = second;
+            this.third  = third;
         }
     
         public Four(First first, Second second, Third third, Fourth fourth) {
-            super(first, second, third);
+            this.first  = first;
+            this.second = second;
+            this.third  = third;
             this.fourth = fourth;
         }
     
@@ -182,11 +211,34 @@ public class Return { protected Return(){ /* Just a wrapper class for contained 
         }
     
         /**
+         * We override for chaining. We set directly to avoid hitting the entire chain of super. 
+         */
+        @Override
+        public Four<First, Second, Third, Fourth> first(First first) {
+            super.first = first; return this;
+        }
+    
+        /**
+         * We override for chaining. We set directly to avoid hitting the entire chain of super. 
+         */
+        @Override
+        public Four<First, Second, Third, Fourth> second(Second second) {
+            super.second = second;  return this;
+        }
+    
+        /**
+         * We override for chaining. We set directly to avoid hitting the entire chain of super. 
+         */
+        @Override
+        public Four<First, Second, Third, Fourth> third(Third third) {
+            super.third = third;  return this;
+        }
+    
+        /**
          * Set fourth
          */
-        public final Four<First, Second, Third, Fourth> fourth(Fourth fourth) {
-            this.fourth = fourth;
-            return this;
+        public Four<First, Second, Third, Fourth> fourth(Fourth fourth) {
+            this.fourth = fourth; return this;
         }
     
         /**
@@ -211,24 +263,33 @@ public class Return { protected Return(){ /* Just a wrapper class for contained 
         public Five() {}
     
         public Five(First first) {
-            super(first);
+            this.first = first;
         }
     
         public Five(First first, Second second) {
-            super(first, second);
+            this.first  = first;
+            this.second = second;
         }
     
         public Five(First first, Second second, Third third) {
-            super(first, second, third);
+            this.first  = first;
+            this.second = second;
+            this.third  = third;
         }
     
         public Five(First first, Second second, Third third, Fourth fourth) {
-            super(first, second, third, fourth);
+            this.first  = first;
+            this.second = second;
+            this.third  = third;
+            this.fourth = fourth;
         }
     
         public Five(First first, Second second, Third third, Fourth fourth, Fifth fifth) {
-            super(first, second, third, fourth);
-            this.fifth = fifth;
+            this.first  = first;
+            this.second = second;
+            this.third  = third;
+            this.fourth = fourth;
+            this.fifth  = fifth;
         }
     
         /**
@@ -239,11 +300,42 @@ public class Return { protected Return(){ /* Just a wrapper class for contained 
         }
     
         /**
+         * We override for chaining. We set directly to avoid hitting the entire chain of super. 
+         */
+        @Override
+        public Five<First,Second,Third,Fourth,Fifth> first(First first) {
+            super.first = first; return this; 
+        }
+    
+        /**
+         * We override for chaining. We set directly to avoid hitting the entire chain of super. 
+         */
+        @Override
+        public Five<First,Second,Third,Fourth,Fifth> second(Second second) {
+            super.second = second;  return this;
+        }
+    
+        /**
+         * We override for chaining. We set directly to avoid hitting the entire chain of super. 
+         */
+        @Override
+        public Five<First,Second,Third,Fourth,Fifth> third(Third third) {
+            super.third = third;  return this;
+        }
+    
+        /**
+         * We override for chaining. We set directly to avoid hitting the entire chain of super. 
+         */
+        @Override
+        public Five<First,Second,Third,Fourth,Fifth> fourth(Fourth fourth) {
+            super.fourth = fourth;  return this;
+        }
+    
+        /**
          * Set fifth
          */
-        public final Five<First, Second, Third, Fourth, Fifth> fifth(Fifth fifth) {
-            this.fifth = fifth;
-            return this;
+        public Five<First, Second, Third, Fourth, Fifth> fifth(Fifth fifth) {
+            this.fifth = fifth; return this;
         }
     
         /**
