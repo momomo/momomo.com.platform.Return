@@ -1,8 +1,6 @@
 <!---
 -->
 
-## momomo.com.platform.Return
-
 ###### An intuitive library that allows you to return multiple return values with defined types on the fly from any method rather than being limited to the default maximum of one.
 
 ##### Dependencies 
