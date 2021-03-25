@@ -41,6 +41,8 @@ Allows for nanosecond time resolution when asking for time from Java Runtime in 
 * [`momomo.com.platform.db.transactional.Hibernate`](https://github.com/momomo/momomo.com.platform.db.transactional.Hibernate)  
 A library to execute database command in transactions without having to use annotations based on Hibernate libraries. No Spring!
 
+---
+
 ### Background
  
 Sometimes we want to easily return multiple return values from a method. This library allows you to do so, up to **five**.
