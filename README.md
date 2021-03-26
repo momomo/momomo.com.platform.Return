@@ -63,7 +63,7 @@ We also provide some utility methods, to cast and clone from one to another.
 
 ### Guide
 
-#### [Return.java](src/momomo/com/Return.java)
+#### [`Return.java`](src/momomo/com/Return.java)
 The class is really self documented. Just try to use it. You will figure it out.  
 
 ### Examples 
@@ -285,7 +285,7 @@ public static void example7() {
 }
 ```
 
-Params = Return - Showing the Params class.    
+**[`Params.java`](src/momomo/com/Params.java)** = **[`Return.java`](src/momomo/com/Return.java)** - Showing the **[`Params.java`](src/momomo/com/Params.java)** class.    
 
 ```java
 /**
