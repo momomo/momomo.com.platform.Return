@@ -92,12 +92,11 @@ public static Return.Four<StringBuilder, String, List<String>, Boolean> example1
     // Return four
     return new Return.Four<>(new StringBuilder("first"), "second", new ArrayList<>(), false);
 }                             
-```    
+```
+
+Showing how to auto cast using `asOne()`, `asTwo()` ...    
 
 ```java
-/**
- * Showing how to auto cast using asOne(), asTwo() ...
- */
 public static void example2() {
     Return.Four<StringBuilder, String, List<String>, Boolean> $ = new Return.Four<>(new StringBuilder("first"), "second", new ArrayList<>(), false);
 
@@ -140,10 +139,10 @@ public static void example2() {
     System.out.println(b.first); // All the same
 }                    
 ```
+
+Showing how to clone / copy to new types using `toOne()`, `toTwo()` ...
+
 ```java
-/**
- * Showing how to clone / copy to new types using toOne(), toTwo() ... 
- */
 public static void example3() {
     Return.Four<StringBuilder, String, ArrayList<Object>, Boolean> $ = new Return.Four<>(new StringBuilder("first"), "second", new ArrayList<>(), false);
 
@@ -244,12 +243,11 @@ public static Return.Two<String, Integer> example5() {
     
     return $.asTwo();
 }                                                      
-```    
+```
+
+Casting again.    
 
 ```java
-/**
- * Casting again
- */
 public static void example6() {
     Return.Five<String, Integer, Long, Boolean, LinkedHashMap<String, List<ArrayList<String>>>> $ = five();
     
@@ -266,12 +264,11 @@ public static void example6() {
     // Yes, the last one is not required, but it looks so much more consistent for this example so we added it. 
     // It just returns this and is cheap. 
 }
-```    
+```
+
+'Cloning' again.    
 
 ```java
-/**
- * 'Cloning' again
- */
 public static void example7() {
     Return.Five<String, Integer, Long, Boolean, LinkedHashMap<String, List<ArrayList<String>>>> $ = five();
     
