@@ -75,9 +75,9 @@ Examples can be found in [`Example.java`](test/momomo/com/platform/Return/exampl
  * @return Four in the end
  */
 public static Return.Four<StringBuilder, String, List<String>, Boolean> example1() {
-    Return.One<String>                  a   = new Return.One<>  ("first");
-    Return.Two<String, Integer>         b   = new Return.Two<>  ("first", 2);
-    Return.Three<String, Integer, Long> c   = new Return.Three<>("first", 2, 3L);
+    Return.One<String>                  a = new Return.One<>  ("first");
+    Return.Two<String, Integer>         b = new Return.Two<>  ("first", 2);
+    Return.Three<String, Integer, Long> c = new Return.Three<>("first", 2, 3L);
     // ... 
     
     // We can read
@@ -91,7 +91,7 @@ public static Return.Four<StringBuilder, String, List<String>, Boolean> example1
     
     // Return four
     return new Return.Four<>(new StringBuilder("first"), "second", new ArrayList<>(), false);
-}                             
+}
 ```
 
 Showing how to auto cast using `asOne()`, `asTwo()` ...    
@@ -137,7 +137,7 @@ public static void example2() {
     System.out.println($.first); // All the same
     System.out.println(a.first); // All the same
     System.out.println(b.first); // All the same
-}                    
+}
 ```
 
 Showing how to clone / copy to new types using `toOne()`, `toTwo()` ...
@@ -178,7 +178,7 @@ public static void example3() {
     System.out.println($.first); // Changing $.first will NOT change a and b too!
     System.out.println(a.first); // "first" 
     System.out.println(b.first); // "first" 
-}                 
+}
 ```
 
 Methods returning higher order, all eventually from five()    
@@ -242,7 +242,7 @@ public static Return.Two<String, Integer> example5() {
     LinkedHashMap<String, List<ArrayList<String>>> fifth  = $.fifth;
     
     return $.asTwo();
-}                                                      
+}
 ```
 
 Casting again.    
