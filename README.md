@@ -71,8 +71,6 @@ The class is really self documented. Just try to use it. You will figure it out.
 Examples can be found in [`Example.java`](test/momomo/com/platform/Return/examples/Examples.java) with the **class body inline** below packed with **examples**: 
 
 ```java
-/////////////////////////////////////////////////////////////////////
-    
 /**
  * @return Four in the end
  */
@@ -143,8 +141,6 @@ public static void example2() {
 }                    
 ```
 ```java
-/////////////////////////////////////////////////////////////////////
-
 /**
  * Showing how to clone / copy to new types using toOne(), toTwo() ... 
  */
@@ -184,13 +180,11 @@ public static void example3() {
     System.out.println(a.first); // "first" 
     System.out.println(b.first); // "first" 
 }                 
-```    
+```
+
+Methods returning higher order, all eventually from five()    
 
 ```java
-/////////////////////////////////////////////////////////////////////
-// Methods returning higher order, all eventually from five() 
-/////////////////////////////////////////////////////////////////////
-
 /**
  * Create One<> by calling higher order one two()
  */
@@ -229,13 +223,11 @@ private static Return.Four<String, Integer, Long, Boolean> four() {
 private static Return.Five<String, Integer, Long, Boolean, LinkedHashMap<String, List<ArrayList<String>>>> five() {
     return new Return.Five<>("first", 2, 3L, Boolean.FALSE, new LinkedHashMap<>());
 }
-```    
+```
+
+Using `one(), two(), three(), four(), five()`    
 
 ```java
-/////////////////////////////////////////////////////////////////////
-// Using one(), two(), three(), four(), five() 
-/////////////////////////////////////////////////////////////////////
-
 /**
  * Just showing all generic types will still resolve. 
  * 
@@ -294,24 +286,22 @@ public static void example7() {
     Return.Four<String, Integer, Long, Boolean> last = new Return.Four<>($.first, $.second, $.third, $.fourth);
     // But typing that manually is a bit too much. You won't get much help from editor typing that either!  
 }
-```    
+```
+
+Params = Return - Showing the Params class.    
 
 ```java
-/////////////////////////////////////////////////////////////////////
-// Param = Return - Showing the Param class. 
-/////////////////////////////////////////////////////////////////////
-
 /**
- * Should you desire to pass say Return.Three<...>, you can declare it as Param.Three instead, just for readability and because it would look wierder having a method with (Return.Three<...> param)
+ * Should you desire to pass say Return.Three<...>, you can declare it as Params.Three instead, just for readability and because it would look wierder having a method with (Return.Three<...> params)
  * 
  * We return casted to One<>!
  */
-private static Return.One<String> eatme(Param.Three<String, Integer, Long> param) {
-    return param.asOne();
+private static Return.One<String> eatme(Params.Three<String, Integer, Long> params) {
+    return params.asOne();
 }
 
 /**
- * Passing Return to eatme method which declares a Param.Three<>  
+ * Passing Return to eatme method which declares a Params.Three<>  
  */
 public static void example8() {
     // We can pass it to params method 
