@@ -93,8 +93,10 @@ public static Return.Four<StringBuilder, String, List<String>, Boolean> example1
     
     // Return four
     return new Return.Four<>(new StringBuilder("first"), "second", new ArrayList<>(), false);
-}
+}                             
+```    
 
+```java
 /**
  * Showing how to auto cast using asOne(), asTwo() ...
  */
@@ -138,8 +140,9 @@ public static void example2() {
     System.out.println($.first); // All the same
     System.out.println(a.first); // All the same
     System.out.println(b.first); // All the same
-}
-
+}                    
+```
+```java
 /////////////////////////////////////////////////////////////////////
 
 /**
@@ -180,8 +183,10 @@ public static void example3() {
     System.out.println($.first); // Changing $.first will NOT change a and b too!
     System.out.println(a.first); // "first" 
     System.out.println(b.first); // "first" 
-}
+}                 
+```    
 
+```java
 /////////////////////////////////////////////////////////////////////
 // Methods returning higher order, all eventually from five() 
 /////////////////////////////////////////////////////////////////////
@@ -224,7 +229,9 @@ private static Return.Four<String, Integer, Long, Boolean> four() {
 private static Return.Five<String, Integer, Long, Boolean, LinkedHashMap<String, List<ArrayList<String>>>> five() {
     return new Return.Five<>("first", 2, 3L, Boolean.FALSE, new LinkedHashMap<>());
 }
+```    
 
+```java
 /////////////////////////////////////////////////////////////////////
 // Using one(), two(), three(), four(), five() 
 /////////////////////////////////////////////////////////////////////
@@ -244,9 +251,10 @@ public static Return.Two<String, Integer> example5() {
     LinkedHashMap<String, List<ArrayList<String>>> fifth  = $.fifth;
     
     return $.asTwo();
-}
+}                                                      
+```    
 
-
+```java
 /**
  * Casting again
  */
@@ -266,7 +274,9 @@ public static void example6() {
     // Yes, the last one is not required, but it looks so much more consistent for this example so we added it. 
     // It just returns this and is cheap. 
 }
+```    
 
+```java
 /**
  * 'Cloning' again
  */
@@ -284,7 +294,9 @@ public static void example7() {
     Return.Four<String, Integer, Long, Boolean> last = new Return.Four<>($.first, $.second, $.third, $.fourth);
     // But typing that manually is a bit too much. You won't get much help from editor typing that either!  
 }
+```    
 
+```java
 /////////////////////////////////////////////////////////////////////
 // Param = Return - Showing the Param class. 
 /////////////////////////////////////////////////////////////////////
