@@ -60,7 +60,7 @@ It also you to ***return subsets*** as it has a smart inheritance structure, sin
 
 We provide some utility methods to **`cast`** and **`clone`** from one to another, such as **`$.asTwo()`**, **`$.asThree()`** and **`$.toTwo()`** and **`$.toThree()`**, `...`.
 
-Documentation is provided through comments within the class **[`Return.java`](src/momomo/com/Return.java)** itself and really is self documented and we recommend you just start try to use it and you will immediately figure out its use. 
+Documentation is provided through comments within the class itself **[`Return.java`](src/momomo/com/Return.java)** which is self documented and we recommend you just start try to use it and you will immediately figure out its use. 
 
 ### Examples
 
@@ -70,7 +70,7 @@ Examples below can be found in **[`Examples.java`](test/momomo/com/platform/Retu
 
 ```java
 public static final class CREATE {
- 
+        
     public static Return.Two<Integer, Long> two() {
         return new Return.Two<>(1, 2L);
     }
@@ -83,7 +83,7 @@ public static final class CREATE {
         return new Return.Four<>(1, 2L, "3", "4");
     }
 
-    public static void main(String[] args) {
+    public static void main() {
         Return.One<String>                         one   = new Return.One<>  ("1");
         Return.Two<String, Integer>                two   = new Return.Two<>  ("1", 2);
         Return.Three<String, Integer, Long>        three = new Return.Three<>("1", 2, 3L);
@@ -109,7 +109,7 @@ public static Return.Three<Integer, Long, String> three() {
     return CREATE.four();            // Same instance, just casted though method inference
 }
 
-public static void four() {
+public static void main() {
     Return.Four<Integer, Long, String, String> four = CREATE.four();
 
     // All casted to lower ones
@@ -118,7 +118,7 @@ public static void four() {
     Return.Three<Integer, Long, String> three = four.asThree();
 
     if (one == two && two == three && three == four) {
-        System.out.println("The universe is instact!");
+        System.out.println("The universe is working!");
     }
 }
 ```
@@ -135,7 +135,7 @@ public static final class CLONE {
         return CREATE.four().toThree();   // A new instance, objects are copied over  
     }
 
-    public static void four() {
+    public static void main() {
         Return.Four<Integer, Long, String, String> four = CREATE.four();
     
         // All copied / cloned to new instances
@@ -150,10 +150,9 @@ public static final class CLONE {
 }
 ```                                                                                
 
-#### Composites  
+#### Composition  
 
 ```java
-
 public static Return.Three<Integer, Long, JFrame> three() {
     // Note, we create a Return.Three from a Return.Two meaning the last one (third) will be null and has to be set manually, otherwise it will remain null.  
     return new Return.Three<Integer, Long, JFrame>( CREATE.two() ).third(new JFrame());
@@ -162,6 +161,17 @@ public static Return.Three<Integer, Long, JFrame> three() {
 public static Return.Four<Integer, Long, String, JFrame> five() {
     // Note, we create a Return.Five from a Return.Four meaning the last one (fourth) will be null and has to be set manually, otherwise it will remain null.  
     return new Return.Four<Integer, Long, String, JFrame>( CREATE.three() ).fourth(new JFrame());
+}
+
+public static void main() {
+    Return.Two<Integer, Long> two = CREATE.two();
+
+    Return.Three<Integer, Long, JFrame>                three = new Return.Three<>(two);
+    Return.Four<Integer, Long, JFrame, JarInputStream> four  = new Return.Four<>(three);
+    
+    if ( three.third == null && four.third == null && four.fourth == null ) {
+        System.out.println("The universe is working!");
+    }
 }
 ```            
 
@@ -198,7 +208,7 @@ public static void four(Params.Four<Integer, Long, String, String> param) {
     String  third  = param.third;
 }
 
-public static void main(String[] args) {
+public static void main() {
     three( new Return.Three<>(1, 2L, "3") );
     three( new Return.Four<> (1, 2L, "3") );
 
