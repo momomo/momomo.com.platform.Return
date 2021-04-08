@@ -193,13 +193,13 @@ public static Return.Two<String, String> four() {
 }
 ```                              
 
-#### Passing
+#### Passing - **[`Params`](src/momomo/com/Params.java)** = **[`Return`](src/momomo/com/Return.java)** - Showing the **[`Params.java`](src/momomo/com/Params.java)** class.    
 
 ```java
-public static void three(Return.Three<Integer, Long, String> objects) {
-    Integer first  = objects.first;
-    Long    second = objects.second;
-    String  third  = objects.third;
+public static void three(Return.Three<Integer, Long, String> param) {
+    Integer first  = param.first;
+    Long    second = param.second;
+    String  third  = param.third;
 }
 
 public static void four(Params.Four<Integer, Long, String, String> param) {
@@ -210,9 +210,16 @@ public static void four(Params.Four<Integer, Long, String, String> param) {
 
 public static void main() {
     three( new Return.Three<>(1, 2L, "3") );
-    three( new Return.Four<> (1, 2L, "3") );
+    three( new Params.Three<>(1, 2L, "3") );
+    
+    three( new Return.Four<> (1, 2L, "3", "4") );
+    three( new Params.Four<> (1, 2L, "3", "4") );
 
+    four( new Return.Four<> (1, 2L, "3", "4") );
     four( new Params.Four<> (1, 2L, "3", "4") );
+
+    four( new Return.Five<> (1, 2L, "3", "4", "5") );
+    four( new Params.Five<> (1, 2L, "3", "4", "5") );
 }
 ```                                                   
 
@@ -416,7 +423,7 @@ public static void example6() {
 }
 ```
 
-'Cloning' again.    
+Cloning again.    
 
 ```java
 public static void example7() {
@@ -432,35 +439,6 @@ public static void example7() {
     // Note that these are all clones. Sure, we could have done:  
     Return.Four<String, Integer, Long, Boolean> last = new Return.Four<>($.first, $.second, $.third, $.fourth);
     // But typing that manually is a bit too much. You won't get much help from editor typing that either!  
-}
-```
-
-**[`Params.java`](src/momomo/com/Params.java)** = **[`Return.java`](src/momomo/com/Return.java)** - Showing the **[`Params.java`](src/momomo/com/Params.java)** class.    
-
-```java
-/**
- * Should you desire to pass say Return.Three<...>, you can declare it as Params.Three instead, just for readability and because it would look wierder having a method with (Return.Three<...> params)
- * 
- * We return casted to One<>!
- */
-private static Return.One<String> eatme(Params.Three<String, Integer, Long> params) {
-    return params.asOne();
-}
-
-/**
- * Passing Return to eatme method which declares a Params.Three<>  
- */
-public static void example8() {
-    // We can pass it to params method 
-    Return.Five<String, Integer, Long, Boolean, LinkedHashMap<String, List<ArrayList<String>>>> $ = five();
-    
-    eatme($);
-    // eatme( $.asOne() );   // Compiler error!
-    // eatme( $.asTwo() );   // Compiler error!
-    
-    eatme( $.asThree() );
-    eatme( $.asFour () );
-    eatme( $.asFive () );
 }
 ```
 

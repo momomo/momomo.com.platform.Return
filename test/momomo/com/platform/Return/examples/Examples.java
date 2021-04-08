@@ -138,10 +138,10 @@ public class Examples {
     /////////////////////////////////////////////////////////////////////
     
     public static final class PASSING {
-        public static void three(Return.Three<Integer, Long, String> objects) {
-            Integer first  = objects.first;
-            Long    second = objects.second;
-            String  third  = objects.third;
+        public static void three(Return.Three<Integer, Long, String> param) {
+            Integer first  = param.first;
+            Long    second = param.second;
+            String  third  = param.third;
         }
     
         public static void four(Params.Four<Integer, Long, String, String> param) {
@@ -152,9 +152,16 @@ public class Examples {
     
         public static void main() {
             three( new Return.Three<>(1, 2L, "3") );
-            three( new Return.Four<> (1, 2L, "3") );
+            three( new Params.Three<>(1, 2L, "3") );
+            
+            three( new Return.Four<> (1, 2L, "3", "4") );
+            three( new Params.Four<> (1, 2L, "3", "4") );
     
-            four(  new Params.Four<> (1, 2L, "3", "4") );
+            four( new Return.Four<> (1, 2L, "3", "4") );
+            four( new Params.Four<> (1, 2L, "3", "4") );
+    
+            four( new Return.Five<> (1, 2L, "3", "4", "5") );
+            four( new Params.Five<> (1, 2L, "3", "4", "5") );
         }
     }
     
