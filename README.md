@@ -150,7 +150,9 @@ public static final class CLONE {
 }
 ```                                                                                
 
-#### Composition  
+#### Composition
+
+Creating a **`Return.Three<...>`** from a lesser such as **`Return.Two<...>`**.    
 
 ```java
 public static Return.Three<Integer, Long, JFrame> three() {
