@@ -82,6 +82,20 @@ public static final class CREATE {
     public static Return.Four<Integer, Long, String, String> four() {
         return new Return.Four<>(1, 2L, "3", "4");
     }
+                                                                 
+    public static void main(String[] args) {
+        Return.One<String>                  one         = new Return.One<>("first");
+        Return.Two<String, Integer>         two         = new Return.Two<>("first", 2);
+        Return.Three<String, Integer, Long> three       = new Return.Three<>("first", 2, 3L);
+        Return.Four<String, Integer, Long, String> four = new Return.Four<>("first"); four.second(2).third(3L).fourth("4");
+        
+        two = new Return.Three<>("first");
+        two = new Return.Four<> ("first");
+        two = new Return.Five<> ("first");
+        two = three; 
+        two = four;
+    }
+
 }
 ```
 
