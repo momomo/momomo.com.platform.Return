@@ -1,7 +1,7 @@
 <!---
 -->
 
-##### Intuitive library that makes it easier for you to return multiple, and fully defined objects on the fly from any method, any time rather than being limited to the default maximum of one. 
+##### Intuitive library that makes it easier for you to return multiple, fully defined objects on the fly from any method, any time rather than being limited to the default maximum of one. 
 
 ##### Dependencies 
 * None. Zero. **JDK5** compatible perhaps even. Not tested but should compile. Tested on **JDK15**.    
