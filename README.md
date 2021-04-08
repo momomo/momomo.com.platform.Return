@@ -132,7 +132,7 @@ public static final class CLONE {
     }
 
     public static Return.Three<Integer, Long, String> three() {
-        return CREATE.four().toThree();   // A new instance, objects are copied over  
+        return CREATE.four().toThree();  // A new instance, objects are copied over  
     }
 
     public static void main() {
