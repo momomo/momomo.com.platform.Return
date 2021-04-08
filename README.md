@@ -42,32 +42,160 @@ A library to execute database command in transactions without having to use anno
           
 ### Background
  
-Sometimes we want to easily return multiple return values from a method. This library allows you to do so, up to **five**.
+At times, we would like the ability to return multiple values from a method and this library allows you to do so, currently **up to nine**. **`Nine`** should be plenty for you. If you need more, just declare a class for god sake!
 
-We use this occasionally, but not a crazy amount in our code. It **also** you to return subsets as it has smart inheritance structure.
-  
-With this `class` based library, you can use: 
-* `Return.One<String>` to return just `One` well defined object.   
-It is provided just for consistency, although it could have some usage. 
-* `Return.Two<String, Integer, Long>` to return `Two` well defined objects. 
-* `Return.Three<String, Integer, Long>` to return `Three` well defined objects. 
-* `Return.Four<String, Integer, Long, Boolean>` to return `Four` well defined objects
-* `Return.Five<String, Integer, Long, Boolean, LinkedHashMap<String, List<ArrayList<String>>>>` to return `Five` well defined objects.
+We use this occasionally, ***but not a crazy amount in our code*** and often when we are still experimenting with signatures and what not and instead of declaring separate objects we might use this as a quick fix. 
 
-* **I hope you understand `<...>` are just examples**!  
+With this class based library, you can ***for instance*** use:
+ 
+* `Return.One<String>`  
+* `Return.Two<String, Integer, Long>`  
+* `Return.Three<String, Integer, Long>` 
+* `Return.Four<String, Integer, Long, Boolean>`
+* `Return.Five<String, Integer, Long, Boolean, LinkedHashMap<String, List<ArrayList<String>>>>`
+* ...
+* `Return.Nine<...>`
 
-Five should be plenty for you. If you need more, just declare a class for god sake!
+It also you to ***return subsets*** as it has a smart inheritance structure, since a **`Return.Three<String, Integer, Long>`** is a also a **`Return.Two<String, Integer>`** and a **`Return.One<String>`**.   
 
-We also provide some utility methods, to cast and clone from one to another.  
+We  provide some utility methods to **`cast`** and **`clone`** from one to another, such as **`$.asTwo()`**, **`$.asThree()`** and **`$.toTwo()`** and **`$.toThree()`**, `...`.
 
-### Guide
+Documentation is provided through comments within the class **[`Return.java`](src/momomo/com/Return.java)** itself and really is self documented and we recommend you just start try to use it and you will immediately figure out its use. 
 
-#### [`Return.java`](src/momomo/com/Return.java)
-The class is really self documented. Just try to use it. You will figure it out.  
+### Examples
 
-### Examples 
+Examples below can be found in **[`Examples.java`](test/momomo/com/platform/Return/examples/Examples.java)** with highlights below:
 
-Examples can be found in **[`Example.java`](test/momomo/com/platform/Return/examples/Examples.java)** with the **class body inline** below packed with **examples**: 
+#### Creating
+
+```java
+public static final class CREATE {
+ 
+    public static Return.Two<Integer, Long> two() {
+        return new Return.Two<>(1, 2L);
+    }
+    
+    public static Return.Three<Integer, Long, String> three() {
+        return new Return.Three<>(1, 2L, "3");
+    }
+
+    public static Return.Four<Integer, Long, String, String> four() {
+        return new Return.Four<>(1, 2L, "3", "4");
+    }
+}
+```
+
+#### Casting
+
+```java
+public static Return.Two<Integer, Long> two() {
+    return CREATE.four().asTwo();    // Same instance, just casted
+}
+
+public static Return.Three<Integer, Long, String> three() {
+    return CREATE.four();            // Same instance, just casted though method inference
+}
+
+public static void four() {
+    Return.Four<Integer, Long, String, String> four = CREATE.four();
+
+    // All casted to lower ones
+    Return.One<Integer>                 one   = four.asOne();
+    Return.Two<Integer, Long>           two   = four.asTwo();
+    Return.Three<Integer, Long, String> three = four.asThree();
+
+    if (one == two && two == three && three == four) {
+        System.out.println("The universe is instact!");
+    }
+}
+```
+
+#### Cloning
+
+```java
+public static final class CLONE {
+    public static Return.Two<Integer, Long> two() {
+        return CREATE.four().toTwo();    // A new instance, objects are copied over  
+    }
+
+    public static Return.Three<Integer, Long, String> three() {
+        return CREATE.four().toThree();   // A new instance, objects are copied over  
+    }
+
+    public static void four() {
+        Return.Four<Integer, Long, String, String> four = CREATE.four();
+    
+        // All copied / cloned to new instances
+        Return.One<Integer>                 one   = four.toOne();
+        Return.Two<Integer, Long>           two   = four.toTwo();
+        Return.Three<Integer, Long, String> three = four.toThree();
+    
+        if (one == two && two == three && three == four) {
+            System.out.println("The universe is collapsing!");
+        }
+    }
+}
+```                                                                                
+
+#### Composites  
+
+```java
+
+public static Return.Three<Integer, Long, JFrame> three() {
+    // Note, we create a Return.Three from a Return.Two meaning the last one (third) will be null and has to be set manually, otherwise it will remain null.  
+    return new Return.Three<Integer, Long, JFrame>( CREATE.two() ).third(new JFrame());
+}
+
+public static Return.Four<Integer, Long, String, JFrame> five() {
+    // Note, we create a Return.Five from a Return.Four meaning the last one (fourth) will be null and has to be set manually, otherwise it will remain null.  
+    return new Return.Four<Integer, Long, String, JFrame>( CREATE.three() ).fourth(new JFrame());
+}
+```            
+
+#### Reading
+
+```java
+public static void three() {
+    Return.Three<Integer, Long, String> three = CREATE.three();
+
+    Integer first  = three.first;
+    Long    second = three.second;
+    String  third  = three.third();
+}
+
+public static Return.Two<String, String> four() {
+    Return.Four<Integer, Long, String, String> four = CREATE.four();
+
+    return new Return.Two<>( four.first + "::" + four.second, four.third() + "::" + four.fourth() );
+}
+```                              
+
+#### Passing
+
+```java
+public static void three(Return.Three<Integer, Long, String> objects) {
+    Integer first  = objects.first;
+    Long    second = objects.second;
+    String  third  = objects.third;
+}
+
+public static void four(Params.Four<Integer, Long, String, String> param) {
+    Integer first  = param.first;
+    Long    second = param.second;
+    String  third  = param.third;
+}
+
+public static void main(String[] args) {
+    three( new Return.Three<>(1, 2L, "3") );
+    three( new Return.Four<> (1, 2L, "3") );
+
+    four( new Params.Four<> (1, 2L, "3", "4") );
+}
+```                                                   
+
+### More examples
+
+More examples can be found in **[`ExamplesToo.java`](test/momomo/com/platform/Return/examples/ExamplesToo.java)** with highlights below: 
 
 ```java
 /**
