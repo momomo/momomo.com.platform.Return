@@ -53,7 +53,7 @@ With this class based library, you can ***for instance*** use:
 
 It also you to ***return subsets*** as it has a smart inheritance structure, since a **`Return.Three<String, Integer, Long>`** is a also a **`Return.Two<String, Integer>`** and a **`Return.One<String>`**.   
 
-We provide some utility methods to **`cast`** and **`clone`** from one to another, such as **`$.asTwo()`**, **`$.asThree()`** and **`$.toTwo()`** and **`$.toThree()`**, `...`.
+We provide some utility methods to **`cast`** and **`clone`** from one to another, such as **`four.asTwo()`**, **`four.asThree()`** and **`four.toTwo()`** and **`four.toThree()`**, `...`.
 
 Documentation is provided through comments within the class itself **[`Return.java`](src/momomo/com/Return.java)** which is self documented and we recommend you just start try to use it and you will immediately figure out its use. 
 
