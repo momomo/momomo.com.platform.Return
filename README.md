@@ -12,7 +12,7 @@
 <dependency>
   <groupId>com.momomo</groupId>
   <artifactId>momomo.com.platform.Return</artifactId>
-  <version>1.0.6</version>
+  <version>5.0.2</version>
 </dependency>                                                      
 ```                         
 ##### Repository
