@@ -188,7 +188,31 @@ public static Objects.Two<String, String> four() {
 
     return new Objects.Two<>( four.first + "::" + four.second, four.third() + "::" + four.fourth() );
 }
-```                              
+```                           
+
+#### Passing     
+
+```java
+public static void three(Objects.Three<Integer, Long, String> param) {
+    Integer first  = param.first;
+    Long    second = param.second;
+    String  third  = param.third;
+}
+
+public static void four(Objects.Four<Integer, Long, String, String> param) {
+    Integer first  = param.first;
+    Long    second = param.second;
+    String  third  = param.third;
+}
+
+public static void main() {
+    three( new Objects.Three<>(1, 2L, "3") );
+    three( new Objects.Four<> (1, 2L, "3", "4") );
+
+    four( new Objects.Four<> (1, 2L, "3", "4") );
+    four( new Objects.Five<> (1, 2L, "3", "4", "5") );
+}
+```     
 
 ### More examples
 

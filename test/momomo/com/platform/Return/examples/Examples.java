@@ -1,6 +1,5 @@
 package momomo.com.platform.Return.examples;
 
-import momomo.com.review.Params;
 import momomo.com.Objects;
 
 import javax.swing.*;
@@ -144,7 +143,7 @@ public class Examples {
             String  third  = param.third;
         }
     
-        public static void four(Params.Four<Integer, Long, String, String> param) {
+        public static void four(Objects.Four<Integer, Long, String, String> param) {
             Integer first  = param.first;
             Long    second = param.second;
             String  third  = param.third;
@@ -152,16 +151,10 @@ public class Examples {
     
         public static void main() {
             three( new Objects.Three<>(1, 2L, "3") );
-            three( new Params.Three<>(1, 2L, "3") );
-            
             three( new Objects.Four<> (1, 2L, "3", "4") );
-            three( new Params.Four<> (1, 2L, "3", "4") );
     
             four( new Objects.Four<> (1, 2L, "3", "4") );
-            four( new Params.Four<> (1, 2L, "3", "4") );
-    
             four( new Objects.Five<> (1, 2L, "3", "4", "5") );
-            four( new Params.Five<> (1, 2L, "3", "4", "5") );
         }
     }
     
