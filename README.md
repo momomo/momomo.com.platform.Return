@@ -43,13 +43,13 @@ We use this occasionally, ***but not a crazy amount in our code*** and often whe
 
 With this class based library, you can ***for instance*** use:
  
-* `Return.One<String>`  
-* `Return.Two<String, Integer, Long>`  
-* `Return.Three<String, Integer, Long>` 
-* `Return.Four<String, Integer, Long, Boolean>`
-* `Return.Five<String, Integer, Long, Boolean, LinkedHashMap<String, List<ArrayList<String>>>>`
+* **`Return.One<String>`**  
+* **`Return.Two<String, Integer, Long>`**  
+* **`Return.Three<String, Integer, Long>`** 
+* **`Return.Four<String, Integer, Long, Boolean>`**
+* **`Return.Five<String, Integer, Long, Boolean, LinkedHashMap<String, List<ArrayList<String>>>>`**
 * ...
-* `Return.Nine<...>`
+* **`Return.Nine<...>`**
 
 It also you to ***return subsets*** as it has a smart inheritance structure, since a **`Return.Three<String, Integer, Long>`** is a also a **`Return.Two<String, Integer>`** and a **`Return.One<String>`**.   
 
