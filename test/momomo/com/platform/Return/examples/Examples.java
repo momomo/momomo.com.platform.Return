@@ -1,7 +1,7 @@
 package momomo.com.platform.Return.examples;
 
-import momomo.com.Params;
-import momomo.com.Return;
+import momomo.com.review.Params;
+import momomo.com.Objects;
 
 import javax.swing.*;
 import java.util.jar.JarInputStream;
@@ -15,27 +15,27 @@ public class Examples {
     
     public static final class CREATE {
         
-        public static Return.Two<Integer, Long> two() {
-            return new Return.Two<>(1, 2L);
+        public static Objects.Two<Integer, Long> two() {
+            return new Objects.Two<>(1, 2L);
         }
         
-        public static Return.Three<Integer, Long, String> three() {
-            return new Return.Three<>(1, 2L, "3");
+        public static Objects.Three<Integer, Long, String> three() {
+            return new Objects.Three<>(1, 2L, "3");
         }
     
-        public static Return.Four<Integer, Long, String, String> four() {
-            return new Return.Four<>(1, 2L, "3", "4");
+        public static Objects.Four<Integer, Long, String, String> four() {
+            return new Objects.Four<>(1, 2L, "3", "4");
         }
     
         public static void main() {
-            Return.One<String>                         one   = new Return.One<>  ("1");
-            Return.Two<String, Integer>                two   = new Return.Two<>  ("1", 2);
-            Return.Three<String, Integer, Long>        three = new Return.Three<>("1", 2, 3L);
-            Return.Four<String, Integer, Long, String> four  = new Return.Four<> ("1"); four.second(2).third(3L).fourth("4");
+            Objects.One<String>                         one   = new Objects.One<>  ("1");
+            Objects.Two<String, Integer>                two   = new Objects.Two<>  ("1", 2);
+            Objects.Three<String, Integer, Long>        three = new Objects.Three<>("1", 2, 3L);
+            Objects.Four<String, Integer, Long, String> four  = new Objects.Four<> ("1"); four.second(2).third(3L).fourth("4");
             
-            two = new Return.Three<>("1");
-            two = new Return.Four<> ("1");
-            two = new Return.Five<> ("1");
+            two = new Objects.Three<>("1");
+            two = new Objects.Four<> ("1");
+            two = new Objects.Five<> ("1");
             two = three; 
             two = four;
         }
@@ -45,21 +45,21 @@ public class Examples {
     
     public static final class CAST {
         
-        public static Return.Two<Integer, Long> two() {
+        public static Objects.Two<Integer, Long> two() {
             return CREATE.four().asTwo();    // Same instance, just casted
         }
     
-        public static Return.Three<Integer, Long, String> three() {
+        public static Objects.Three<Integer, Long, String> three() {
             return CREATE.four();            // Same instance, just casted though method inference
         }
     
         public static void main() {
-            Return.Four<Integer, Long, String, String> four = CREATE.four();
+            Objects.Four<Integer, Long, String, String> four = CREATE.four();
         
             // All casted to lower ones
-            Return.One<Integer>                 one   = four.asOne();
-            Return.Two<Integer, Long>           two   = four.asTwo();
-            Return.Three<Integer, Long, String> three = four.asThree();
+            Objects.One<Integer>                 one   = four.asOne();
+            Objects.Two<Integer, Long>           two   = four.asTwo();
+            Objects.Three<Integer, Long, String> three = four.asThree();
         
             if (one == two && two == three && three == four) {
                 System.out.println("The universe is working!");
@@ -70,21 +70,21 @@ public class Examples {
     /////////////////////////////////////////////////////////////////////
     
     public static final class CLONE {
-        public static Return.Two<Integer, Long> two() {
+        public static Objects.Two<Integer, Long> two() {
             return CREATE.four().toTwo();    // A new instance, objects are copied over  
         }
     
-        public static Return.Three<Integer, Long, String> three() {
+        public static Objects.Three<Integer, Long, String> three() {
             return CREATE.four().toThree();  // A new instance, objects are copied over  
         }
     
         public static void main() {
-            Return.Four<Integer, Long, String, String> four = CREATE.four();
+            Objects.Four<Integer, Long, String, String> four = CREATE.four();
         
             // All copied / cloned to new instances
-            Return.One<Integer>                 one   = four.toOne();
-            Return.Two<Integer, Long>           two   = four.toTwo();
-            Return.Three<Integer, Long, String> three = four.toThree();
+            Objects.One<Integer>                 one   = four.toOne();
+            Objects.Two<Integer, Long>           two   = four.toTwo();
+            Objects.Three<Integer, Long, String> three = four.toThree();
         
             if (one == two && two == three && three == four) {
                 System.out.println("The universe is collapsing!");
@@ -95,21 +95,21 @@ public class Examples {
     /////////////////////////////////////////////////////////////////////
     
     public static final class COMPOSITION {
-        public static Return.Three<Integer, Long, JFrame> three() {
+        public static Objects.Three<Integer, Long, JFrame> three() {
             // Note, we create a Return.Three from a Return.Two meaning the last one (third) will be null and has to be set manually, otherwise it will remain null.  
-            return new Return.Three<Integer, Long, JFrame>( CREATE.two() ).third(new JFrame());
+            return new Objects.Three<Integer, Long, JFrame>( CREATE.two() ).third(new JFrame());
         }
         
-        public static Return.Four<Integer, Long, String, JFrame> five() {
+        public static Objects.Four<Integer, Long, String, JFrame> five() {
             // Note, we create a Return.Five from a Return.Four meaning the last one (fourth) will be null and has to be set manually, otherwise it will remain null.  
-            return new Return.Four<Integer, Long, String, JFrame>( CREATE.three() ).fourth(new JFrame());
+            return new Objects.Four<Integer, Long, String, JFrame>( CREATE.three() ).fourth(new JFrame());
         }
     
         public static void main() {
-            Return.Two<Integer, Long> two = CREATE.two();
+            Objects.Two<Integer, Long> two = CREATE.two();
     
-            Return.Three<Integer, Long, JFrame>                three = new Return.Three<>(two);
-            Return.Four<Integer, Long, JFrame, JarInputStream> four  = new Return.Four<>(three);
+            Objects.Three<Integer, Long, JFrame>                three = new Objects.Three<>(two);
+            Objects.Four<Integer, Long, JFrame, JarInputStream> four  = new Objects.Four<>(three);
             
             if ( three.third == null && four.third == null && four.fourth == null ) {
                 System.out.println("The universe is working!");
@@ -121,24 +121,24 @@ public class Examples {
     
     public static final class READ {
         public static void three() {
-            Return.Three<Integer, Long, String> three = CREATE.three();
+            Objects.Three<Integer, Long, String> three = CREATE.three();
         
             Integer first  = three.first;
             Long    second = three.second;
             String  third  = three.third();
         }
     
-        public static Return.Two<String, String> four() {
-            Return.Four<Integer, Long, String, String> four = CREATE.four();
+        public static Objects.Two<String, String> four() {
+            Objects.Four<Integer, Long, String, String> four = CREATE.four();
     
-            return new Return.Two<>( four.first + "::" + four.second, four.third() + "::" + four.fourth() );
+            return new Objects.Two<>( four.first + "::" + four.second, four.third() + "::" + four.fourth() );
         }
     }
     
     /////////////////////////////////////////////////////////////////////
     
     public static final class PASSING {
-        public static void three(Return.Three<Integer, Long, String> param) {
+        public static void three(Objects.Three<Integer, Long, String> param) {
             Integer first  = param.first;
             Long    second = param.second;
             String  third  = param.third;
@@ -151,16 +151,16 @@ public class Examples {
         }
     
         public static void main() {
-            three( new Return.Three<>(1, 2L, "3") );
+            three( new Objects.Three<>(1, 2L, "3") );
             three( new Params.Three<>(1, 2L, "3") );
             
-            three( new Return.Four<> (1, 2L, "3", "4") );
+            three( new Objects.Four<> (1, 2L, "3", "4") );
             three( new Params.Four<> (1, 2L, "3", "4") );
     
-            four( new Return.Four<> (1, 2L, "3", "4") );
+            four( new Objects.Four<> (1, 2L, "3", "4") );
             four( new Params.Four<> (1, 2L, "3", "4") );
     
-            four( new Return.Five<> (1, 2L, "3", "4", "5") );
+            four( new Objects.Five<> (1, 2L, "3", "4", "5") );
             four( new Params.Five<> (1, 2L, "3", "4", "5") );
         }
     }

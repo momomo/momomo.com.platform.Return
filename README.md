@@ -43,19 +43,19 @@ We use this occasionally, ***but not a crazy amount in our code*** and often whe
 
 With this class based library, you can ***for instance*** use:
  
-* **`Return.One<String>`**  
-* **`Return.Two<String, Integer, Long>`**  
-* **`Return.Three<String, Integer, Long>`** 
-* **`Return.Four<String, Integer, Long, Boolean>`**
-* **`Return.Five<String, Integer, Long, Boolean, LinkedHashMap<String, List<ArrayList<String>>>>`**
+* **`Objects.One<String>`**  
+* **`Objects.Two<String, Integer, Long>`**  
+* **`Objects.Three<String, Integer, Long>`** 
+* **`Objects.Four<String, Integer, Long, Boolean>`**
+* **`Objects.Five<String, Integer, Long, Boolean, LinkedHashMap<String, List<ArrayList<String>>>>`**
 * ...
-* **`Return.Nine<...>`**
+* **`Objects.Nine<...>`**
 
-It also you to ***return subsets*** as it has a smart inheritance structure, since a **`Return.Three<String, Integer, Long>`** is a also a **`Return.Two<String, Integer>`** and a **`Return.One<String>`**.   
+It also you to ***return subsets*** as it has a smart inheritance structure, since a **`Objects.Three<String, Integer, Long>`** is a also a **`Objects.Two<String, Integer>`** and a **`Objects.One<String>`**.   
 
 We provide some utility methods to **`cast`** and **`clone`** from one to another, such as **`four.asTwo()`**, **`four.asThree()`** and **`four.toTwo()`** and **`four.toThree()`**, `...`.
 
-Documentation is provided through comments within the class itself **[`Return.java`](src/momomo/com/Return.java)** which is self documented and we recommend you just start try to use it and you will immediately figure out its use. 
+Documentation is provided through comments within the class itself **[`Objects.java`](src/momomo/com/Objects.java)** which is self documented and we recommend you just start try to use it and you will immediately figure out its use. 
 
 ### Examples
 
@@ -66,27 +66,27 @@ Examples below can be found in **[`Examples.java`](test/momomo/com/platform/Retu
 ```java
 public static final class CREATE {
         
-    public static Return.Two<Integer, Long> two() {
-        return new Return.Two<>(1, 2L);
+    public static Objects.Two<Integer, Long> two() {
+        return new Objects.Two<>(1, 2L);
     }
     
-    public static Return.Three<Integer, Long, String> three() {
-        return new Return.Three<>(1, 2L, "3");
+    public static Objects.Three<Integer, Long, String> three() {
+        return new Objects.Three<>(1, 2L, "3");
     }
 
-    public static Return.Four<Integer, Long, String, String> four() {
-        return new Return.Four<>(1, 2L, "3", "4");
+    public static Objects.Four<Integer, Long, String, String> four() {
+        return new Objects.Four<>(1, 2L, "3", "4");
     }
 
     public static void main() {
-        Return.One<String>                         one   = new Return.One<>  ("1");
-        Return.Two<String, Integer>                two   = new Return.Two<>  ("1", 2);
-        Return.Three<String, Integer, Long>        three = new Return.Three<>("1", 2, 3L);
-        Return.Four<String, Integer, Long, String> four  = new Return.Four<> ("1"); four.second(2).third(3L).fourth("4");
+        Objects.One<String>                         one   = new Objects.One<>  ("1");
+        Objects.Two<String, Integer>                two   = new Objects.Two<>  ("1", 2);
+        Objects.Three<String, Integer, Long>        three = new Objects.Three<>("1", 2, 3L);
+        Objects.Four<String, Integer, Long, String> four  = new Objects.Four<> ("1"); four.second(2).third(3L).fourth("4");
         
-        two = new Return.Three<>("1");
-        two = new Return.Four<> ("1");
-        two = new Return.Five<> ("1");
+        two = new Objects.Three<>("1");
+        two = new Objects.Four<> ("1");
+        two = new Objects.Five<> ("1");
         two = three; 
         two = four;
     }
@@ -96,21 +96,21 @@ public static final class CREATE {
 #### Casting
 
 ```java
-public static Return.Two<Integer, Long> two() {
+public static Objects.Two<Integer, Long> two() {
     return CREATE.four().asTwo();    // Same instance, just casted
 }
 
-public static Return.Three<Integer, Long, String> three() {
+public static Objects.Three<Integer, Long, String> three() {
     return CREATE.four();            // Same instance, just casted though method inference
 }
 
 public static void main() {
-    Return.Four<Integer, Long, String, String> four = CREATE.four();
+    Objects.Four<Integer, Long, String, String> four = CREATE.four();
 
     // All casted to lower ones
-    Return.One<Integer>                 one   = four.asOne();
-    Return.Two<Integer, Long>           two   = four.asTwo();
-    Return.Three<Integer, Long, String> three = four.asThree();
+    Objects.One<Integer>                 one   = four.asOne();
+    Objects.Two<Integer, Long>           two   = four.asTwo();
+    Objects.Three<Integer, Long, String> three = four.asThree();
 
     if (one == two && two == three && three == four) {
         System.out.println("The universe is working!");
@@ -122,21 +122,21 @@ public static void main() {
 
 ```java
 public static final class CLONE {
-    public static Return.Two<Integer, Long> two() {
+    public static Objects.Two<Integer, Long> two() {
         return CREATE.four().toTwo();    // A new instance, objects are copied over  
     }
 
-    public static Return.Three<Integer, Long, String> three() {
+    public static Objects.Three<Integer, Long, String> three() {
         return CREATE.four().toThree();  // A new instance, objects are copied over  
     }
 
     public static void main() {
-        Return.Four<Integer, Long, String, String> four = CREATE.four();
+        Objects.Four<Integer, Long, String, String> four = CREATE.four();
     
         // All copied / cloned to new instances
-        Return.One<Integer>                 one   = four.toOne();
-        Return.Two<Integer, Long>           two   = four.toTwo();
-        Return.Three<Integer, Long, String> three = four.toThree();
+        Objects.One<Integer>                 one   = four.toOne();
+        Objects.Two<Integer, Long>           two   = four.toTwo();
+        Objects.Three<Integer, Long, String> three = four.toThree();
     
         if (one == two && two == three && three == four) {
             System.out.println("The universe is collapsing!");
@@ -147,24 +147,24 @@ public static final class CLONE {
 
 #### Composition
 
-Creating a **`Return.Three<...>`** from a lesser such as **`Return.Two<...>`**. We do this using a constructor to avoid some **** calling a **`toTwo()`** inadvertedly if we had supplied that instead.       
+Creating a **`Objects.Three<...>`** from a lesser such as **`Objects.Two<...>`**. We do this using a constructor to avoid some **** calling a **`toTwo()`** inadvertedly if we had supplied that instead.       
 
 ```java
-public static Return.Three<Integer, Long, JFrame> three() {
-    // Note, we create a Return.Three from a Return.Two meaning the last one (third) will be null and has to be set manually, otherwise it will remain null.  
-    return new Return.Three<Integer, Long, JFrame>( CREATE.two() ).third(new JFrame());
+public static Objects.Three<Integer, Long, JFrame> three() {
+    // Note, we create a Objects.Three from a Objects.Two meaning the last one (third) will be null and has to be set manually, otherwise it will remain null.  
+    return new Objects.Three<Integer, Long, JFrame>( CREATE.two() ).third(new JFrame());
 }
 
-public static Return.Four<Integer, Long, String, JFrame> five() {
-    // Note, we create a Return.Five from a Return.Four meaning the last one (fourth) will be null and has to be set manually, otherwise it will remain null.  
-    return new Return.Four<Integer, Long, String, JFrame>( CREATE.three() ).fourth(new JFrame());
+public static Objects.Four<Integer, Long, String, JFrame> five() {
+    // Note, we create a Objects.Five from a Objects.Four meaning the last one (fourth) will be null and has to be set manually, otherwise it will remain null.  
+    return new Objects.Four<Integer, Long, String, JFrame>( CREATE.three() ).fourth(new JFrame());
 }
 
 public static void main() {
-    Return.Two<Integer, Long> two = CREATE.two();
+    Objects.Two<Integer, Long> two = CREATE.two();
 
-    Return.Three<Integer, Long, JFrame>                three = new Return.Three<>(two);
-    Return.Four<Integer, Long, JFrame, JarInputStream> four  = new Return.Four<>(three);
+    Objects.Three<Integer, Long, JFrame>                three = new Objects.Three<>(two);
+    Objects.Four<Integer, Long, JFrame, JarInputStream> four  = new Objects.Four<>(three);
     
     if ( three.third == null && four.third == null && four.fourth == null ) {
         System.out.println("The universe is working!");
@@ -176,49 +176,19 @@ public static void main() {
 
 ```java
 public static void three() {
-    Return.Three<Integer, Long, String> three = CREATE.three();
+    Objects.Three<Integer, Long, String> three = CREATE.three();
 
     Integer first  = three.first;
     Long    second = three.second;
     String  third  = three.third();
 }
 
-public static Return.Two<String, String> four() {
-    Return.Four<Integer, Long, String, String> four = CREATE.four();
+public static Objects.Two<String, String> four() {
+    Objects.Four<Integer, Long, String, String> four = CREATE.four();
 
-    return new Return.Two<>( four.first + "::" + four.second, four.third() + "::" + four.fourth() );
+    return new Objects.Two<>( four.first + "::" + four.second, four.third() + "::" + four.fourth() );
 }
 ```                              
-
-#### Passing - **[`Params`](src/momomo/com/Params.java)** = **[`Return`](src/momomo/com/Return.java)** - Showing the **[`Params.java`](src/momomo/com/Params.java)** class.    
-
-```java
-public static void three(Return.Three<Integer, Long, String> param) {
-    Integer first  = param.first;
-    Long    second = param.second;
-    String  third  = param.third;
-}
-
-public static void four(Params.Four<Integer, Long, String, String> param) {
-    Integer first  = param.first;
-    Long    second = param.second;
-    String  third  = param.third;
-}
-
-public static void main() {
-    three( new Return.Three<>(1, 2L, "3") );
-    three( new Params.Three<>(1, 2L, "3") );
-    
-    three( new Return.Four<> (1, 2L, "3", "4") );
-    three( new Params.Four<> (1, 2L, "3", "4") );
-
-    four( new Return.Four<> (1, 2L, "3", "4") );
-    four( new Params.Four<> (1, 2L, "3", "4") );
-
-    four( new Return.Five<> (1, 2L, "3", "4", "5") );
-    four( new Params.Five<> (1, 2L, "3", "4", "5") );
-}
-```                                                   
 
 ### More examples
 
@@ -228,10 +198,10 @@ More examples can be found in **[`ExamplesToo.java`](test/momomo/com/platform/Re
 /**
  * @return Four in the end
  */
-public static Return.Four<StringBuilder, String, List<String>, Boolean> example1() {
-    Return.One<String>                  a = new Return.One<>  ("first");
-    Return.Two<String, Integer>         b = new Return.Two<>  ("first", 2);
-    Return.Three<String, Integer, Long> c = new Return.Three<>("first", 2, 3L);
+public static Objects.Four<StringBuilder, String, List<String>, Boolean> example1() {
+    Objects.One<String>                  a = new Objects.One<>  ("first");
+    Objects.Two<String, Integer>         b = new Objects.Two<>  ("first", 2);
+    Objects.Three<String, Integer, Long> c = new Objects.Three<>("first", 2, 3L);
     // ... 
     
     // We can read
@@ -244,7 +214,7 @@ public static Return.Four<StringBuilder, String, List<String>, Boolean> example1
     c.third(11L);        // Using setter
     
     // Return four
-    return new Return.Four<>(new StringBuilder("first"), "second", new ArrayList<>(), false);
+    return new Objects.Four<>(new StringBuilder("first"), "second", new ArrayList<>(), false);
 }
 ```
 
@@ -252,10 +222,10 @@ Showing how to auto cast using `asOne()`, `asTwo()` ...
 
 ```java
 public static void example2() {
-    Return.Four<StringBuilder, String, List<String>, Boolean> $ = new Return.Four<>(new StringBuilder("first"), "second", new ArrayList<>(), false);
+    Objects.Four<StringBuilder, String, List<String>, Boolean> $ = new Objects.Four<>(new StringBuilder("first"), "second", new ArrayList<>(), false);
 
-    Return.One<StringBuilder>         a = $.asOne(); // Casting from Four<> to One<>
-    Return.Two<StringBuilder, String> b = $.asTwo(); // Casting from Four<> to Two<>
+    Objects.One<StringBuilder>         a = $.asOne(); // Casting from Four<> to One<>
+    Objects.Two<StringBuilder, String> b = $.asTwo(); // Casting from Four<> to Two<>
 
     // Still the same instance!
     if ( $.equals(a) && $.equals(b) ) {
@@ -268,22 +238,22 @@ public static void example2() {
     }
                                 
     // Still the same instance!
-    if ( a instanceof Return.Four ) {
+    if ( a instanceof Objects.Four ) {
         System.out.println(true);
     }
 
     // Still the same instance!
-    if ( a instanceof Return.Three ) {
+    if ( a instanceof Objects.Three ) {
         System.out.println(true);
     }
 
     // Still the same instance!
-    if ( a instanceof Return.Two ) {
+    if ( a instanceof Objects.Two ) {
         System.out.println(true);
     }
 
     // Still the same instance!
-    if ( a instanceof Return.One ) {
+    if ( a instanceof Objects.One ) {
         System.out.println(true);
     }
     
@@ -298,10 +268,10 @@ Showing how to clone / copy to new types using `toOne()`, `toTwo()` ...
 
 ```java
 public static void example3() {
-    Return.Four<StringBuilder, String, ArrayList<Object>, Boolean> $ = new Return.Four<>(new StringBuilder("first"), "second", new ArrayList<>(), false);
+    Objects.Four<StringBuilder, String, ArrayList<Object>, Boolean> $ = new Objects.Four<>(new StringBuilder("first"), "second", new ArrayList<>(), false);
 
-    Return.One<StringBuilder>         a = $.toOne(); // Not casting, but copying to a new instance!
-    Return.Two<StringBuilder, String> b = $.toTwo(); // Not casting, but copying to a new instance!
+    Objects.One<StringBuilder>         a = $.toOne(); // Not casting, but copying to a new instance!
+    Objects.Two<StringBuilder, String> b = $.toTwo(); // Not casting, but copying to a new instance!
 
     // Not the same instance!
     if ( $.equals(a) && $.equals(b) ) {
@@ -309,22 +279,22 @@ public static void example3() {
     }
 
     // False!
-    if ( a instanceof Return.Four ) {
+    if ( a instanceof Objects.Four ) {
         System.out.println(false);
     }
 
     // False!
-    if ( a instanceof Return.Three ) {
+    if ( a instanceof Objects.Three ) {
         System.out.println(false);
     }
 
     // False!
-    if ( a instanceof Return.Two ) {
+    if ( a instanceof Objects.Two ) {
         System.out.println(false);
     }
 
     // True!
-    if ( a instanceof Return.One ) {
+    if ( a instanceof Objects.One ) {
         System.out.println(true);
     }
 
@@ -341,17 +311,17 @@ Methods returning higher order, all eventually from five()
 /**
  * Create One<> by calling higher order one two()
  */
-private static Return.One<String> one() {
+private static Objects.One<String> one() {
     return two();  // A two can be casted to a one
 }
 
 /**
  * Create Two<> by calling higher order one three(), four() or five()
  */
-private static Return.Two<String, Integer> two() {
+private static Objects.Two<String, Integer> two() {
     if ( false ) return four();                 // A four can be casted to two
     if ( false ) return five();                 // A five can be casted to two
-    if ( false ) new Return.Two<>("first", 2);  // We can create it directly
+    if ( false ) new Objects.Two<>("first", 2);  // We can create it directly
     
     return three(); // A three can be casted to a two
 }
@@ -359,22 +329,22 @@ private static Return.Two<String, Integer> two() {
 /**
  * Create Three<> by calling higher order one four()
  */
-private static Return.Three<String, Integer, Long> three() {
+private static Objects.Three<String, Integer, Long> three() {
     return four();
 }
 
 /**
  * Create Four<> by calling higher order one five()
  */
-private static Return.Four<String, Integer, Long, Boolean> four() {
+private static Objects.Four<String, Integer, Long, Boolean> four() {
     return five();
 }
 
 /**
  * Create Five<>
  */
-private static Return.Five<String, Integer, Long, Boolean, LinkedHashMap<String, List<ArrayList<String>>>> five() {
-    return new Return.Five<>("first", 2, 3L, Boolean.FALSE, new LinkedHashMap<>());
+private static Objects.Five<String, Integer, Long, Boolean, LinkedHashMap<String, List<ArrayList<String>>>> five() {
+    return new Objects.Five<>("first", 2, 3L, Boolean.FALSE, new LinkedHashMap<>());
 }
 ```
 
@@ -386,8 +356,8 @@ Using `one(), two(), three(), four(), five()`
  * 
  * We return one casted to Two<> from a Five<>
  */
-public static Return.Two<String, Integer> example5() {
-    Return.Five<String, Integer, Long, Boolean, LinkedHashMap<String, List<ArrayList<String>>>> $ = five();
+public static Objects.Two<String, Integer> example5() {
+    Objects.Five<String, Integer, Long, Boolean, LinkedHashMap<String, List<ArrayList<String>>>> $ = five();
     
     String                                         first  = $.first;
     Integer                                        second = $.second;
@@ -403,17 +373,17 @@ Casting again.
 
 ```java
 public static void example6() {
-    Return.Five<String, Integer, Long, Boolean, LinkedHashMap<String, List<ArrayList<String>>>> $ = five();
+    Objects.Five<String, Integer, Long, Boolean, LinkedHashMap<String, List<ArrayList<String>>>> $ = five();
     
     // Auto casting. The only major benefit of this one is that you won't have to type all of the generic signatures. 
     // If you have $ here, and you would like to express it as a Four, typing those might a be a hassle, at least when typing examples. 
     // So we provide convienience methods to do that. Intellij / Eclipse will generate the field. 
     
-    Return.One<String>                                                                          one   = $.asOne();
-    Return.Two<String, Integer>                                                                 two   = $.asTwo();
-    Return.Three<String, Integer, Long>                                                         three = $.asThree();
-    Return.Four<String, Integer, Long, Boolean>                                                 four  = $.asFour();
-    Return.Five<String, Integer, Long, Boolean, LinkedHashMap<String, List<ArrayList<String>>>> five  = $.asFive();
+    Objects.One<String>                                                                          one   = $.asOne();
+    Objects.Two<String, Integer>                                                                 two   = $.asTwo();
+    Objects.Three<String, Integer, Long>                                                         three = $.asThree();
+    Objects.Four<String, Integer, Long, Boolean>                                                 four  = $.asFour();
+    Objects.Five<String, Integer, Long, Boolean, LinkedHashMap<String, List<ArrayList<String>>>> five  = $.asFive();
     
     // Yes, the last one is not required, but it looks so much more consistent for this example so we added it. 
     // It just returns this and is cheap. 
@@ -424,17 +394,17 @@ Cloning again.
 
 ```java
 public static void example7() {
-    Return.Five<String, Integer, Long, Boolean, LinkedHashMap<String, List<ArrayList<String>>>> $ = five();
+    Objects.Five<String, Integer, Long, Boolean, LinkedHashMap<String, List<ArrayList<String>>>> $ = five();
     
     // Clones. 
-    Return.One<String>                                                                          one   = $.toOne();
-    Return.Two<String, Integer>                                                                 two   = $.toTwo();
-    Return.Three<String, Integer, Long>                                                         three = $.toThree();
-    Return.Four<String, Integer, Long, Boolean>                                                 four  = $.toFour();
-    Return.Five<String, Integer, Long, Boolean, LinkedHashMap<String, List<ArrayList<String>>>> five  = $.toFive();
+    Objects.One<String>                                                                          one   = $.toOne();
+    Objects.Two<String, Integer>                                                                 two   = $.toTwo();
+    Objects.Three<String, Integer, Long>                                                         three = $.toThree();
+    Objects.Four<String, Integer, Long, Boolean>                                                 four  = $.toFour();
+    Objects.Five<String, Integer, Long, Boolean, LinkedHashMap<String, List<ArrayList<String>>>> five  = $.toFive();
     
     // Note that these are all clones. Sure, we could have done:  
-    Return.Four<String, Integer, Long, Boolean> last = new Return.Four<>($.first, $.second, $.third, $.fourth);
+    Objects.Four<String, Integer, Long, Boolean> last = new Objects.Four<>($.first, $.second, $.third, $.fourth);
     // But typing that manually is a bit too much. You won't get much help from editor typing that either!  
 }
 ```

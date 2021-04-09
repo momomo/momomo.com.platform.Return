@@ -11,7 +11,7 @@ package momomo.com;
  * 
  * @author Joseph S.
  */
-public class Return { protected Return(){ /* Just a wrapper class for contained classes. Only subclasses allowed to invoke constructor */ }
+public class Objects { protected Objects(){ /* Just a wrapper class for contained classes. Only subclasses allowed to invoke constructor */ }
     
     /**
      * Not really neccessary but good to support the below classes
