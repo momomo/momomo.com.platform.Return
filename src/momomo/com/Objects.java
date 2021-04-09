@@ -3,11 +3,20 @@ package momomo.com;
 /**
  * This class and its inner classes are made to support any method to return more than one instance, statically and retain types and what not. 
  * 
- * Using these classes a method can simply return 1-5 return values.
+ * Using these classes a method can simply return 1-9 return values, or declare any Object with 1-9 sub objects.
  * 
- * Note, that they are intentionally not final, since we might desire to generate the returns not in one place, the constructor, but might prepare it using if else logic.
+ * We know {@link java.util.Objects} is already taken but that class is used rarely why we felt it was ok, to superseed it.
  * 
- * See examples at the bottom of this file for examples. 
+ * Previously, we've experimented with class names such as Return, Chunks, Crumbs, Bits, Particles, and so forth, but nothing quite did it as return Objects.Three<>(). 
+ * 
+ * Objects.Three is also acceptible to use when you wish to declare three objects in one as well, where
+ * 
+ * Objects.Three<> three = new Objects.Three<>(); 
+ *      is nice to read, while
+ * Return.Three<> three = new Return.Three<>(); 
+ *           not so much. 
+ * 
+ * Note, that fields are intentionally not final, since we might desire to generate the returns not in one place, the constructor, but might prepare it using if else logic.
  * 
  * @author Joseph S.
  */
